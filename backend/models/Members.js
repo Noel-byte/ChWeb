@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 const spouseSchema = new mongoose.Schema({
-  firstname: { type: String, required: false },
-  middlename: { type: String, required: false },
-  lastname: { type: String, required: false },
+  firstname: { type: String, required: true },
+  middlename: { type: String, required: true },
+  lastname: { type: String, required: true },
 });
 
 const memberSchema = new mongoose.Schema({
