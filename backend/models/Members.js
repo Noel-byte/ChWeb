@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const familyMemberSchema = new mongoose.Schema({
+const spouseSchema = new mongoose.Schema({
   firstname: { type: String, required: false },
   middlename: { type: String, required: false },
   lastname: { type: String, required: false },
@@ -21,7 +21,7 @@ const memberSchema = new mongoose.Schema({
   startdate: { type: Date, default: Date.now },
   membershipfee: { type: String, required:true },
   membershiptype:{type:String,required:true},
-  familymembers: {type:[familyMemberSchema],required:false} 
+  spouse: {type:[spouseSchema],required:false} 
 });
 
 const Member = mongoose.model('Member', memberSchema);
