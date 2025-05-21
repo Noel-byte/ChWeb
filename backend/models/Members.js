@@ -13,14 +13,14 @@ const memberSchema = new mongoose.Schema({
   lastname: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
-  martialstatus: { type: [String], required: false },
+  martialstatus: { type: String, required: true },
   city: { type: String, required: true },
   province: { type: String, required: true },
   postalcode: { type: String, required: true },
   address: { type: String, required: true },
   startdate: { type: Date, default: Date.now },
-  membershipfee: { type: [String], required:false },
-  membershiptype:{type:[String],required:false},
+  membershipfee: { type: String, required:true },
+  membershiptype:{type:String,required:true},
   familymembers: {type:[familyMemberSchema],required:false} 
 });
 

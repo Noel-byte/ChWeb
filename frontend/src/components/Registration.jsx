@@ -27,9 +27,9 @@ const Registration = () => {
     const postalCode = formData.get('postalcode');
     const address = formData.get('address');
     const startDate = formData.get('startdate');
-    const membershipType = formData.getAll('memtype');
-    const membershipFee = formData.getAll('memfee');
-    const martialStatus = formData.getAll('martialstatus');
+    const membershipType = formData.get('memtype');
+    const membershipFee = formData.get('memfee');
+    const martialStatus = formData.get('martialstatus');
 
     const churMem = {
       memberid:memberId,
