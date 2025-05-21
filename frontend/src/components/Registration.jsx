@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import Select from './Select';
-import Family from './Family';
+import Spouse from './Spouse';
 import TextArea from './TextArea';
-import axios from 'axios'
+import axios from 'axios';
 
-const urllocal = `http://localhost:5000`
+const urllocal = `http://localhost:5000`;
 
 const Registration = () => {
   const [selected, setSelected] = useState('');
@@ -32,7 +32,7 @@ const Registration = () => {
     const martialStatus = formData.get('martialstatus');
 
     const churMem = {
-      memberid:memberId,
+      memberid: memberId,
       firstname: firstName,
       lastname: lastName,
       middlename: middleName,
@@ -50,7 +50,10 @@ const Registration = () => {
 
     console.log(churMem);
 
-    axios.post(`${urllocal}/api/members`,churMem).then(()=>console.log('success')).catch((err)=>console.log(err))
+    axios
+      .post(`${urllocal}/api/members`, churMem)
+      .then(() => console.log('success'))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -104,7 +107,7 @@ const Registration = () => {
                 options={['Single', 'Family']}
                 onChange={(e) => getSelectedValue(e.target.value)}
               />
-              {selected === 'Family' && <Family />}
+
               <Select label="Fee Paid" name="memfee" options={['Yes', 'No']} />
             </fieldset>
           </div>
@@ -117,6 +120,7 @@ const Registration = () => {
           Register
         </button>
       </form>
+      {selected === 'Family' && <Spouse />}
     </div>
   );
 };
