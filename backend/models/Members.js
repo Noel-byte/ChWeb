@@ -13,7 +13,7 @@ const memberSchema = new mongoose.Schema({
   lastname: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
-  martialstatus: { type: String, required: true },
+  maritalstatus: { type: String, required: true },
   city: { type: String, required: true },
   province: { type: String, required: true },
   postalcode: { type: String, required: true },
