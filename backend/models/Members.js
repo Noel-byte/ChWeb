@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 
 const spouseSchema = new mongoose.Schema({
-  firstname: { type: String, required: true },
-  middlename: { type: String, required: true },
-  lastname: { type: String, required: true },
+  spousefirstname: { type: String, required: false },
+  spousemiddlename: { type: String, required: false },
+  spouselastname: { type: String, required: false },
 });
 
 const memberSchema = new mongoose.Schema({
-  memberid: { type: String, required: true },
+  memberid: { type: String, required: true ,unique:true},
   firstname: { type: String, required: true },
   middlename: { type: String, required: true },
   lastname: { type: String, required: true },
@@ -19,9 +19,9 @@ const memberSchema = new mongoose.Schema({
   postalcode: { type: String, required: true },
   address: { type: String, required: true },
   startdate: { type: Date, default: Date.now },
-  membershipfee: { type: String, required:true },
   membershiptype:{type:String,required:true},
-  spouse: {type:[spouseSchema],required:false} 
+  googleId:{type:String,required:false},
+  spouse: {type:spouseSchema,required:false} 
 });
 
 const Member = mongoose.model('Member', memberSchema);

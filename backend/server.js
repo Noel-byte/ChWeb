@@ -1,20 +1,34 @@
+// console.log('Starting server...');
+import dotenv from 'dotenv';
+dotenv.config();
+console.log('Loaded env vars...');
+console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import memberRoute from './routes/memberRoute.js';
-import dotenv from 'dotenv';
+import Stripe from 'stripe';
+import Member from './models/Members.js';
+import adminRoutes from './routes/adminRoutes.js';
+import passport from 'passport';
 
-dotenv.config();
+import authRoutes from './routes/authRoutes.js';
+import './config/passport.js'; //triggers strategy registration
+
+console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/members', memberRoute);
+app.use(passport.initialize());
 
-// app.get('/',(req,res)=>{
-//     res.send('API is running...')
-// })
+app.use('/api/auth', authRoutes);
+
+app.use('/api/members', memberRoute);
+app.use('/api/admin', adminRoutes);
 
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
