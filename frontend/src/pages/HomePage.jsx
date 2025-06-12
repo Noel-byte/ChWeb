@@ -1,13 +1,59 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import MyContext from '../components/MyContext';
+import axios from 'axios';
+const urllocal = `http://localhost:5000`;
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+   const {token,isAdmin} = useContext(MyContext)
+ 
+  useEffect(() => {
+    //make a get request to the post
+    axios
+      .get(`${urllocal}/api/members/getPost`)
+      .then((response) => setPosts(response.data.posts))
+      .catch((error) => console.log(error));
+  }, []);
   return (
-    <div className="pt-45 flex flex-col items-center ">
-      {' '}
-      {/* Add padding to push below header */}
-      <div className="space-y-2  w-3/4 py-6 px-4 rounded-lg   border shadow-md bg-white overflow-auto h-110">
-        <h1> home page</h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi minima cum mollitia incidunt sunt hic exercitationem nulla fugiat explicabo quod laboriosam inventore lat laudantium quam amet possimus voluptatibus recusandae iusto exercitationem soluta. Facilis ad qui pariatur eveniet nesciunt dolores accusamus praesentium, minus soluta, ex consectetur commodi magnam ducimus? A et repudiandae reprehenderit quam labore, adipisci vero vitae iste hic tempora, consectetur ullam dignissimos nihil quas harum iusto, sed quia quae! Voluptatibus perferendis facilis rerum ducimus! Fugiat expedita incidunt debitis voluptatum sequi, beatae culpa minus dolorum voluptatibus fugit officiis autem optio placeat eaque eligendi blanditiis aperiam tempore. Fugiat ab, reiciendis necessitatibus quidem ratione ipsa corrupti cumque sequi itaque, consectetur quasi nobis labore ipsum repellendus nulla molestiae quo dignissimos illum alias vitae eaque consequuntur odit! Architecto, sunt. Distinctio saepe, corporis cum debitis quos asperiores rerum nemo temporibus inventore error earum dolor alias laboriosam laborum facere. Tempore id beatae vitae deserunt, odit tenetur. Similique repellendus voluptates ex quisquam veniam unde exercitationem ad hic, deleniti inventore animi tempore cum magni accusantium corrupti dolorum aliquid fuga labore totam. Suscipit quis recusandae non, nostrum culpa, ad ea sed architecto, quasi animi debitis magnam aut reprehenderit. Vel quaerat, unde eum quis repudiandae molestias laborum, cupiditate rem, hic totam reiciendis dolor ullam saepe adipisci aperiam quibusdam. Velit error suscipit vel nihil tempora, delectus, ut dignissimos atque necessitatibus repellendus corporis cupiditate expedita consectetur minima illo dolorem neque. Saepe, quia! Odit natus est quo cupiditate odio voluptatibus, ab veniam iste, placeat illo, eligendi sequi numquam reprehenderit architecto reiciendis inventore distinctio recusandae necessitatibus magni quae animi ratione consequuntur. Illum unde aliquam, modi perferendis culpa veritatis quasi labore porro eligendi quidem libero commodi a soluta quos! Dolor nobis earum enim expedita molestias autem, Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo ab officiis rerum quam, reiciendis, aspernatur velit dolorem voluptates aliquam beatae ad ipsum alias voluptatibus corrupti officia impedit? Nulla eos dolorum, architecto sapiente exercitationem et atque quis quae voluptatem fugit eligendi eius debitis quasi veritatis voluptates vero perferendis provident magnam ipsa fugiat velit veniam odit omnis. Nostrum temporibus quisquam vel consequuntur, earum harum totam alias tenetur omnis repellat. Ipsa omnis sit eius architecto voluptatem, ullam tenetur quis maxime fuga magni nobis enim dignissimos dolore. Fugit minima, soluta rem vitae repellat necessitatibus tempore tempora excepturi velit mollitia exercitationem quasi omnis sed iste magnam expedita architecto perferendis, quod dicta! Qui deleniti ducimus laudantium, odit, beatae inventore cumque quos commodi corporis architecto magni quae perspiciatis iste quaerat soluta dignissimos alias recusandae voluptate officia dolorem facere ex necessitatibus doloremque. Possimus consectetur dolores dolorem itaque dolorum, alias quasi, qui error expedita excepturi ullam enim dolor rerum. Aspernatur vel hic pariatur error incidunt aliquid. Expedita repudiandae reiciendis, nihil tenetur sapiente aspernatur! Facere odio rerum voluptas fugit, a molestias fugiat beatae quidem dolore inventore, quasi voluptatibus nostrum rem temporibus saepe numquam sed alias incidunt porro, commodi repellendus sunt! Voluptatem repudiandae nam eveniet aliquid cum temporibus qui, commodi, cumque laudantium ad corporis doloribus earum quibusdam? Cum molestiae, delectus minima rem fugiat ut eaque necessitatibus natus odit dolor reiciendis assumenda placeat vero aliquid iure nemo voluptates ex alias cupiditate aliquam illo. Quas quo dignissimos commodi quam magnam officia aliquam recusandae quia ab doloremque soluta temporibus ea reiciendis, quis sed minus nisi possimus. Neque saepe mollitia quasi facere natus laborum, hic ipsam recusandae iusto quo minima. Nam ut in quasi ipsum quas dolore, inventore minima dolor eius tempora magni fugiat delectus facere voluptatem accusamus esse sapiente perspiciatis, repellat iusto ab. Sunt, odio, provident voluptatum voluptatem quidem optio natus repellendus, numquam eos explicabo mollitia? Amet repellat itaque sequi officia error illo ad exercitationem facere totam officiis quidem delectus, consectetur doloribus impedit adipisci? Sit at ex quia vel repellat dolores eveniet illo laborum nemo, consequatur magni, pariatur, quibusdam impedit. Obcaecati ratione repudiandae voluptate nobis, tenetur porro esse quo, cum praesentium, facere qui dignissimos ab dolorum dicta molestiae iusto. Provident similique illum veritatis! Porro molestiae mollitia laborum iste exercitationem, asperiores corrupti praesentium perspiciatis eaque est error ad explicabo quam? Itaque totam delectus accusamus in architecto. Facere adipisci voluptatibus, praesentium molestiae cumque fugiat culpa iure quia deserunt itaque sequi debitis voluptatum exercitationem a ab odio. Voluptate repellendus officiis quae quaerat voluptatibus consequatur, possimus libero architecto consequuntur at quo deleniti dignissimos eaque impedit esse veniam animi. Quae dignissimos, doloremque cupiditate inventore quaerat ab. Quos pariatur temporibus maxime architecto modi distinctio voluptate veniam obcaecati, recusandae quaerat nemo nihil itaque consequatur voluptas labore nisi facilis doloremque neque. Fuga minus quia veniam a ipsam perspiciatis, similique impedit recusandae maiores, ex natus. Eius adipisci dignissimos odit ducimus enim neque, expedita consectetur, non animi repellat ab. Voluptate illum aliquam quas animi maxime possimus itaque aut expedita veritatis quasi optio doloribus, laudantium rem necessitatibus ex. Ad odio sit totam delectus cupiditate, dolorum distinctio quisquam facilis natus illo dolorem nesciunt amet sapiente eius earum, id minima pariatur possimus illum, consectetur est iusto aspernatur et? Eveniet officia nulla ipsa nobis nam laudantium inventore tempore distinctio non, quidem aut sunt aliquam saepe rerum mollitia exercitationem beatae tempora voluptatem aperiam optio possimus repudiandae autem! Nesciunt fugit illum expedita, perferendis ducimus dolores quasi delectus minus iure sit totam deserunt, quaerat minima maxime, mollitia amet nisi at cupiditate esse necessitatibus? Dolorem, deserunt! Officia provident sed reiciendis veniam, officiis alias? Ipsa distinctio laborum quasi, omnis ea consectetur quae deserunt eius magnam. Delectus mollitia consequatur laudantium perferendis, hic accusamus doloremque quibusdam voluptatem deserunt eum dolor quia illo ut ea dolore itaque repellendus ratione illum, modi, blanditiis dolores est at magni aut? Modi laboriosam sed quibusdam atque quaerat numquam voluptatibus unde quod aliquid adipisci, esse quos magnam fugiat, at error illo earum amet saepe vero excepturi? Quasi vero dignissimos eaque assumenda, laudantium provident odit ducimus a enim error fugiat expedita sit earum sint minima ab officiis accusantium dolore illum rerum sequi nam iure. Eaque quos laboriosam exercitationem reiciendis vero esse ipsum nobis laborum porro repudiandae fuga minima, dolor officiis ipsa fugit. Alias officia aspernatur, vel aut aliquam ea at modi, asperiores esse adipisci ex quas saepe hic. Numquam maxime ad et est cupiditate deserunt vel similique harum ipsa unde reiciendis obcaecati dolore, temporibus voluptas error aspernatur quae adipisci voluptatibus veniam nostrum nobis quis quod inventore. Perferendis, error nam temporibus consequatur explicabo nisi pariatur id iusto ducimus quam impedit voluptatibus eius repellendus ipsam dignissimos esse quasi sed beatae dolore recusandae maiores delectus! Porro nulla cumque eum ipsam deserunt rerum necessitatibus natus qui mollitia quas? Ipsa molestias libero numquam fuga possimus explicabo ducimus earum necessitatibus voluptatibus architecto, accusantium enim odit esse, cum non officia ab laboriosam, dolores consectetur suscipit itaque. Facere cumque aut maxime possimus quaerat dolorum voluptates quia ipsa velit! Enim, a necessitatibus modi blanditiis dolor veniam eos animi corporis fugit, reiciendis explicabo, atque sunt et nihil autem error cum voluptates aut cumque quibusdam maiores vel eligendi expedita. Odit, architecto? Amet quo in asperiores porro quod suscipit vel, iste ipsa? Quisquam inventore incidunt provident voluptas? Earum, qui unde fugiat, aliquam perspiciatis eligendi consectetur quam id officia distinctio placeat consequatur illo! Ad, in consectetur! Voluptatem quam porro, asperiores labore, nulla iste quo totam similique qui necessitatibus corrupti minima temporibus deleniti quaerat, aliquid consequuntur fugit nostrum amet. Iusto, deserunt, explicabo doloribus quaerat quae amet reiciendis rerum at tenetur sint consectetur, fuga nostrum. Nesciunt, voluptate labore rem dicta excepturi mollitia voluptates sint numquam vero odit quia similique doloremque harum nulla quidem non quo. Ducimus eligendi consequuntur eius corporis aliquid aliquam minima. Ab asperiores corporis repellat voluptas earum ex numquam a, et mollitia quaerat ad vero. Vel expedita atque fugiat ab aspernatur quidem, quod nostrum recusandae, quae repudiandae tempore minima qui. Delectus, maiores suscipit! Consectetur deleniti hic eligendi dicta voluptates nihil excepturi veritatis, nisi quis illo distinctio tempora recusandae est earum, explicabo tempore accusantium tenetur velit facere dignissimos enim ipsam deserunt sit assumenda? Voluptate, alias voluptatem. </p>
+    <div className="pt-48 flex flex-col items-center ">
+      <h1 className="text-white text-3xl pb-3 font-titles">
+        Community Messages
+      </h1>
+      <div className="flex gap-3 flex-wrap justify-center ">
+        {[...posts]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
+          .map((post, index) => (
+            <div
+              className=" rounded outline py-2 px-6 shadow-lg w-90 break-words bg-white text-gray-800 "
+              key={index}
+            >
+              <h1 className="flex items-center gap-2 justify-between">
+                <span className=" first-letter:uppercase text-2xl font-titles">
+                  {post.title}
+                </span>
+
+                {index === 0 && (
+                  <span className="bg-green-500 text-white text-sm px-4 py-0.5 rounded font-title">
+                    NEW
+                  </span>
+                )}
+              </h1>
+              <div className="font-text pt-2 text-xl">
+                <p className=" first-letter:uppercase">{post.post}</p>
+                <span className="font-mono text-gray-400 block pt-3">
+                  Posted: {new Date(post.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+              {(token&&isAdmin)&&(<div className="flex justify-center gap-4 items-center pt-5 ">
+                <button className=' flex-1 border  px-4 py-1 rounded-lg bg-dark text-white font-buttons hover:cursor-pointer shadow-lg'>Edit</button>
+                <button className='flex-1 border  px-4 py-1 rounded-lg bg-red-600 text-white font-buttons hover:cursor-pointer shadow-lg'>Delete</button>
+              </div>)}
+              
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -403,7 +403,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="pt-45 flex flex-col items-center">
+    <div className="pt-45 flex flex-col items-center ">
       <div className="w-11/12 md:w-3/4 px-6 py-2 rounded-lg  space-y-4 border bg-stone-50">
         <h2 className=" text-2xl font-bold py-2 text-center">
           Registration - Form

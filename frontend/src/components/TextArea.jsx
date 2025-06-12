@@ -8,6 +8,8 @@ const TextArea = ({label,name,value,onChange}) => {
                 name={name}
                 id="address"
                 rows="3"
+                colos='10'
+                wrap='hard'
                 className="bg-stone-50 outline px-2 rounded"
                 defaultValue={value}
                 onChange={(event)=>onChange(name,event.target.value)}

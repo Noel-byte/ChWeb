@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const paymentSchema = new mongoose.Schema({
   member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
   amount: Number,
-  method: String,
-  status: String,
+  status: {type:String,default:'Not Payed'},
   createAt: { type: Date, default: Date.now },
 });
 

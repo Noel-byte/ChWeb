@@ -1,4 +1,5 @@
 import Admin from '../models/Admin.js';
+import Post from '../models/Posts.js'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
@@ -37,4 +38,21 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
 };
 
-export default loginUser;
+const createPost =  async(req,res)=>{
+  const {title,post} = req.body
+ 
+  //create a post in the database
+  const newPost = new Post({title,post})
+
+  //save the post
+ const savePost =  newPost.save()
+
+ if(savePost){
+  res.status(201).json({message:'Post created successfully'})
+ }else{
+  res.status(401).json({message:'error creating a post'})
+ }
+
+}
+
+export  {loginUser,createPost};

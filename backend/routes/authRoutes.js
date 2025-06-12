@@ -22,6 +22,8 @@ router.post('/google-token', async (req, res) => {
     const payload = ticket.getPayload();
     const email = payload.email;
 
+    console.log('payload: ',payload)
+
     // Find church member by email
     const member = await Member.findOne({ email });
     if (!member) {
@@ -35,7 +37,7 @@ router.post('/google-token', async (req, res) => {
     }
 
     // Create your own JWT token for your app
-    const token = jwt.sign({ id: member._id, email: member.email }, process.env.JWT_SECRET_KEY, {
+    const token = jwt.sign({ id: member._id, email: member.email,googleid:payload.sub }, process.env.JWT_SECRET_KEY, {
       expiresIn: '1h',
     });
 

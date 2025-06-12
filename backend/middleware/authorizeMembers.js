@@ -53,6 +53,7 @@ export const protect = async (req, res, next) => {
 
       //attach the memeber to the request body
       req.user = member;
+      req.user.googleid=verifiedToken.googleid
        //from verfied token get the email address
       const userEmail = verifiedToken.email;
       req.user.isAdmin = userEmail === 'horizon33noela@gmail.com';

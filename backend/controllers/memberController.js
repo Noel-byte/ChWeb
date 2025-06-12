@@ -1,4 +1,7 @@
 import Member from '../models/Members.js';
+import Payment from '../models/Payments.js'
+import Donation from '../models/Donations.js'
+import Post from '../models/Posts.js'
 import dotenv from 'dotenv';
 dotenv.config();
 import Stripe from 'stripe';
@@ -7,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const createMember = async (req, res) => {
 
 
-  console.log('Incoming form data: ',req.body)
+  // console.log('Incoming form data: ',req.body)
   const {
     memberid,
     firstname,
@@ -56,6 +59,15 @@ const createMember = async (req, res) => {
   }
 };
 
+const getPost = async(req,res)=>{
+        try{
+          const posts = await Post.find()
+          res.status(200).json({posts})
+        }catch(err){
+          res.status(500).json({message:'server error'})
+        }
+}
+
 const getMember = async (req, res) => {
   //get the id from the request body
   const id = req.user.id; //from url params 
@@ -69,7 +81,7 @@ const member = await Member.findById(id)
     return res.status(404).json({message:'Member not found'})
   }
   //then get user by using memberid
-  console.log('member found:', member);
+  console.log('member found with googleid:', member.googleId);
   res.status(200).json({member,isAdmin})
   }catch(error){
     console.log('error fetching member: ',error)
@@ -82,7 +94,7 @@ const member = await Member.findById(id)
 const processPayment =  async (req, res) => {
   const {amount } = req.body;
   const id = req.user.id
-
+console.log("googleid: ",req.user.googleid)
 
 
 
@@ -121,6 +133,15 @@ const processPayment =  async (req, res) => {
       cancel_url: `${YOUR_DOMAIN}/payment-canceled`,
     });
 
+    //save the payment to the database
+    const newPayment = new Payment({
+      member:id,
+      amount:parseFloat(amount),
+      status:'Payed'
+    })
+
+     await newPayment.save()    //save
+
     res.status(200).json({ url: session.url});
   } catch (error) {
     console.error('Stripe session error:', error);
@@ -130,14 +151,9 @@ const processPayment =  async (req, res) => {
 
 const processDonation = async (req, res) => {
   const {amount } = req.body;
+  // const {googleid} = req.user.googleid
 
   try {
-    // const user = await Member.findOne({ memberid });
-    // console.log(user);
-
-    // if (!user) {
-    //   return res.status(404).json({ error: 'User not found' });
-    // }
 
     //create stripe customer
     const customer = await stripe.customers.create({
@@ -166,6 +182,15 @@ const processDonation = async (req, res) => {
       cancel_url: `${YOUR_DOMAIN}/donation-canceled`,
     });
 
+    //save donation to the database
+    const newDonation = new Donation({
+      // googleid,
+      email:req.user.email,
+      amount:parseFloat(amount)
+    })
+
+     await newDonation.save()   //save donation to the database
+
     res.status(200).json({ url: session.url });
   } catch (error) {
     console.error('Stripe session error:', error);
@@ -174,4 +199,4 @@ const processDonation = async (req, res) => {
 };
 
 
-export {createMember,getMember,processPayment,processDonation};
+export {createMember,getMember,processPayment,processDonation,getPost};

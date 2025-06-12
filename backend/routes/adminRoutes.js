@@ -1,5 +1,5 @@
 import express from 'express';
-import loginUser from '../controllers/adminConteroller.js';
+import {loginUser,createPost} from '../controllers/adminConteroller.js';
 import passport from 'passport'
 import jwt from 'jsonwebtoken'
 
@@ -7,6 +7,7 @@ const router = express.Router();
 
 //local login
 router.post('/login',loginUser)
+router.post('/post',createPost)
 
 //google OAuth routes
 // router.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}))
