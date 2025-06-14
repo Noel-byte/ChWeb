@@ -9,7 +9,8 @@ import FileUpload from '../components/FileUpload';
 // import { useActionState } from 'react';
 // import { isEmail, isEmpty } from '../util/validation';
 
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 
 const Registration = () => {
   const { setIsAdminOpen } = useContext(MyContext);
@@ -164,7 +165,7 @@ const Registration = () => {
   //   }
 
   //   axios
-  //     .post(`${urllocal}/api/members`, churMem)
+  //     .post(`${urlremote}/api/members`, churMem)
   //     .then(() => console.log('success'))
   //     .catch((err) => console.log(err));
 
@@ -371,7 +372,7 @@ const Registration = () => {
 
     //create a member in the database
     axios
-      .post(`${urllocal}/api/members`, churMem)
+      .post(`${urlremote}/api/members`, churMem)
       .then(() => {
         console.log('success');
         setEnteredValues({

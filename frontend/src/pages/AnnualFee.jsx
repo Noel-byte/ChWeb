@@ -3,7 +3,8 @@ import { useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
 import Input from '../components/Input';
 import axios from 'axios';
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 const AnnualFee = () => {
   const { feeAmount, userInfo, setUserInfo, setFeeAmount,token } =
     useContext(MyContext);
@@ -15,7 +16,7 @@ const AnnualFee = () => {
     //load member details
     if(!token) return;
     axios
-      .get(`${urllocal}/api/members/user`, {
+      .get(`${urlremote}/api/members/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +41,7 @@ const AnnualFee = () => {
 
     const data ={amount}
     //validate the member id
-    axios.post(`${urllocal}/api/members/create-checkout-session-annualfee`,data, {
+    axios.post(`${urlremote}/api/members/create-checkout-session-annualfee`,data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

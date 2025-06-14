@@ -3,7 +3,8 @@ import Input from '../components/Input';
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import MyContext from '../components/MyContext';
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 
 const Donate = () => {
   const [amount, setAmount] = useState(0);
@@ -34,7 +35,7 @@ const Donate = () => {
 
     axios
       .post(
-        `${urllocal}/api/members/create-checkout-session-donation`,
+        `${urlremote}/api/members/create-checkout-session-donation`,
         { amount },
         {
           headers: {

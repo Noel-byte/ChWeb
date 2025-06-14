@@ -3,7 +3,8 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import MyContext from '../components/MyContext';
 import BlogEditor from '../components/BlogEditor';
 import axios from 'axios';
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 
 const CreatePost = () => {
   const [content, setContent] = useState('');
@@ -19,7 +20,7 @@ const CreatePost = () => {
 
     //make a post request
     axios
-      .post(`${urllocal}/api/admin/post`, { content })
+      .post(`${urlremote}/api/admin/post`, { content })
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
   };

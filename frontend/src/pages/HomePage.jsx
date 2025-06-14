@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import MyContext from '../components/MyContext';
 import axios from 'axios';
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -12,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     //make a get request to the post
     axios
-      .get(`${urllocal}/api/members/getPost`)
+      .get(`${urlremote}/api/members/getPost`)
       .then((response) => setPosts(response.data.posts))
       .catch((error) => console.log(error));
   }, []);

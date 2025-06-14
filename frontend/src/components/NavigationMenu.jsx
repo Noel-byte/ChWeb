@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import MyContext from './MyContext';
 import axios from 'axios';
-const urllocal = `http://localhost:5000`;
+// const urlremote = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`
 
 const NavigationMenu = () => {
   const { token, isAdmin, setToken, setIsAdmin, isAdminOpen, setIsAdminOpen } =
@@ -60,7 +61,7 @@ const NavigationMenu = () => {
     //load member details
     if (!token) return;
     axios
-      .get(`${urllocal}/api/members/user`, {
+      .get(`${urlremote}/api/members/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
