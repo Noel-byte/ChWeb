@@ -1,23 +1,44 @@
 @import 'tailwindcss';
 
 @theme {
-    --color-dark:	#353535;
-    --font-buttons:"Roboto", serif;
-    --font-titles:"Montserrat", serif;
-    --font-text:"Poppins", serif;
-    --color-nav:rgba(48,57,76,1);
-    --color-nav:rgba(48,57,76,1);
-    --color-backcolor:#212121;
-    --color-orangered:#259b24;
-    --color-navbar:#7e57c2;
-    --color-gr:#1793d1;
-    --color-heading:#feba02;
-    --color-signup:#fbb034;
-    --color-button:#003580;
-    --color-royalblue:#0056D2;
-    --color-darkbrown:#5C4033;
-    --color-emerald:#50C878;
-    --color-main:#e6f0ff;
-  
-  }
+  --color-dark: #353535;
+  --font-buttons: 'Roboto', serif;
+  --font-titles: 'Montserrat', serif;
+  --font-text: 'Poppins', serif;
+  --color-nav: rgba(48, 57, 76, 1);
+  --color-nav: rgba(48, 57, 76, 1);
+  --color-backcolor: #212121;
+  --color-orangered: #259b24;
+  --color-navbar: #7e57c2;
+  --color-gr: #1793d1;
+  --color-heading: #feba02;
+  --color-signup: #fbb034;
+  --color-button: #003580;
+  --color-royalblue: #0056d2;
+  --color-darkbrown: #5c4033;
+  --color-emerald: #50c878;
+  --color-main: #e6f0ff;
+}
+
+.my-rich-content table {
+  width: 100%;        /* Makes the table expand to container width */
+  border-collapse: collapse;
+  table-layout: auto; /* Or 'fixed' if you want strict column widths */
+  overflow-x: auto;   /* Good for mobile: enable horizontal scroll if needed */
+}
+
+.my-rich-content th,
+.my-rich-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.my-rich-content th {
+  background-color: #222;
+  color: #fff;
+}
+
+.my-rich-content tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 

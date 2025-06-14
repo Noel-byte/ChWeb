@@ -1,57 +1,51 @@
 import React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import MyContext from '../components/MyContext';
-import TextArea from '../components/TextArea';
-import Input from '../components/Input';
-import axios from 'axios'
+import BlogEditor from '../components/BlogEditor';
+import axios from 'axios';
 const urllocal = `http://localhost:5000`;
 
-
 const CreatePost = () => {
-  const [enValues, setEnValues] = useState({ title: '', post: '' });
+  const [content, setContent] = useState('');
   const { setIsAdminOpen } = useContext(MyContext);
 
-  const handleChange = (identifier, value) => {
-    setEnValues((prev) => ({
-      ...prev,
-      [identifier]: value,
-    }));
-  };
+  const handleChange = useCallback((newValue) => {
+    console.log(newValue);
+    setContent(newValue);
+  }, []);
 
-  const createPost = (e) =>{
+  const createPost = (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
-
-    const {title,post} = enValues
-    console.log(title,post)
-     
     //make a post request
-    axios.post(`${urllocal}/api/admin/post`,enValues)
-    .then((response)=>console.log(response.data))
-    .catch((error)=>console.log(error))
- 
-  }
+    axios
+      .post(`${urllocal}/api/admin/post`, { content })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     setIsAdminOpen(false);
   }, [setIsAdminOpen]);
   return (
-    <div className="pt-45 flex flex-col items-center">
-      <div className='flex flex-col gap-2 outline py-2 px-8 pb-6 rounded'>
-        <h1 className='text-center text-2xl text-white'>Create a post</h1>
-        <Input
-          label="Title"
-          name="title"
-          onChange={handleChange}
-          value={enValues.title}
-        />
-        <TextArea
-          label="Create A Post: "
-          name="post"
-          onChange={handleChange}
-          value={enValues.post}
-        />
-        <button className="outline px-4 py-1 rounded self-end mt-3 font-buttons bg-dark text-white text-lg hover:cursor-pointer" onClick={createPost}>Submit Post</button>
+    <div className="pb-10 px-4 flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-4xl bg-white rounded-xl border border-gray-200 shadow-lg p-6 md:p-8">
+        <h1 className="text-center text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+          Create a Post
+        </h1>
+
+        <div className="mb-6">
+          <BlogEditor handleChange={handleChange} value={content} />
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-100">
+          <button
+            onClick={createPost}
+            className={`px-6 py-3 rounded-lg font-bold text-white transition-all duration-300 min-w-[150px] ${'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transform hover:scale-[1.02]'}`}
+          >
+            Submit Post
+          </button>
+        </div>
       </div>
     </div>
   );

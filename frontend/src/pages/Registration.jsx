@@ -5,6 +5,7 @@ import TextArea from '../components/TextArea';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
+import FileUpload from '../components/FileUpload';
 // import { useActionState } from 'react';
 // import { isEmail, isEmpty } from '../util/validation';
 
@@ -403,7 +404,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="pt-45 flex flex-col items-center ">
+    <div className="flex flex-col items-center ">
       <div className="w-11/12 md:w-3/4 px-6 py-2 rounded-lg  space-y-4 border bg-stone-50">
         <h2 className=" text-2xl font-bold py-2 text-center">
           Registration - Form
@@ -588,6 +589,7 @@ const Registration = () => {
                 )}
               </fieldset>
             </div>
+            <FileUpload />
           </div>
           <button
             className=" justify-start border rounded-lg px-6 py-2 w-1/2 m-auto block bg-white text-dark text-lg hover:cursor-pointer hover:bg-dark hover:text-white mt-4"

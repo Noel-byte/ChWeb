@@ -85,7 +85,39 @@ const Login = () => {
   };
   return (
     <>
-      <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+  <dialog
+    ref={dialogRef}
+    className="bg-dark rounded-xl shadow-lg z-50 w-full max-w-md max-h-[90vh] overflow-y-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+  >
+    <div className="p-6">
+      <h2 className="text-center text-xl md:text-2xl font-semibold mb-4 text-white ">
+        Login with your Google account
+      </h2>
+      
+      <div className="flex flex-col items-center">
+        <GoogleOAuthProvider clientId={clientId}>
+          <GoogleLogin
+            onSuccess={handleLoginSuccess}
+            onError={handleLoginError}
+            size="large"
+            width="300"
+            className="w-full"
+          />
+        </GoogleOAuthProvider>
+        
+        <button
+          className="mt-6 px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors duration-200 w-full max-w-xs"
+          type="button"
+          onClick={handleClose}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </dialog>
+</div>
+      {/* <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
       <dialog
         ref={dialogRef}
         className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
@@ -109,7 +141,7 @@ const Login = () => {
             Close
           </button>
         </form>
-      </dialog>
+      </dialog> */}
     </>
   );
 };

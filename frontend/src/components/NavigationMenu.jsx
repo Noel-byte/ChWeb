@@ -14,6 +14,7 @@ const NavigationMenu = () => {
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isSpirtualopen, setIsSpirtualOpen] = useState(false);
   const [isLifeEventsopen, setIsLifeEventsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -46,14 +47,14 @@ const NavigationMenu = () => {
     setIsAdminOpen(false);
   };
 
-  const closeDropdown = () => {
-    setIsDropdownOpen(false);
-  };
+  // const closeDropdown = () => {
+  //   setIsDropdownOpen(false);
+  // };
 
-  const handleLogin = () => {
-    localStorage.setItem('token', token);
-    setToken(token);
-  };
+  // const handleLogin = () => {
+  //   localStorage.setItem('token', token);
+  //   setToken(token);
+  // };
 
   useEffect(() => {
     //load member details
@@ -80,139 +81,249 @@ const NavigationMenu = () => {
   };
 
   return (
-    <nav className=" fixed top-0 left-0 z-20 w-screen  text-white px-10 py-4  font-button flex justify-between">
-      <ul className="flex justify-between text-2xl  w-3/4">
+    <nav className="fixed top-0 left-0 z-20 w-screen text-white px-4 lg:px-10 py-4 font-button bg-nav backdrop-blur-md flex flex-wrap justify-between items-center">
+  {/* Desktop Menu */}
+  <div className="hidden lg:flex justify-between w-3/4">
+    <ul className="flex justify-between text-xl w-full">
+      {/* Home */}
+      <li>
+        <Link to="" className="hover:text-stone-400 transition-colors duration-200">ገዛ</Link>
+      </li>
+
+      {/* Admin Dropdown */}
+      {token && isAdmin && (
+        <li className="relative">
+          <button
+            onClick={toggleAdminDropdown}
+            className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
+          >
+            ኣድሚን ▾
+          </button>
+          {isAdminOpen && (
+            <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-3 z-50 shadow-lg">
+              <li><Link to="register" className="hover:text-stone-400 block py-1">ምዝገባ</Link></li>
+              <li><Link to="post" className="hover:text-stone-400 block py-1">ጽሑፍ ፍጠር</Link></li>
+            </ul>
+          )}
+        </li>
+      )}
+
+      {/* Services Dropdown */}
+      <li className="relative">
+        <button
+          onClick={toggleServicesDropdown}
+          className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
+        >
+          ኣገልግሎታት ▾
+        </button>
+        {isServicesDropdownOpen && (
+          <ul className="absolute left-0 w-60 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-4 z-50 shadow-lg">
+            <li>
+              <button 
+                onClick={toggleSpirtualServices}
+                className="w-full text-left hover:text-stone-400 flex justify-between items-center"
+              >
+                Spirtual Services <span>{isSpirtualopen ? '▲' : '▼'}</span>
+              </button>
+              {isSpirtualopen && (
+                <ul className="pl-4 mt-2 space-y-2 border-l border-stone-600">
+                  <li><Link to="" className="hover:text-stone-400 block">Baptism</Link></li>
+                  <li><Link to="" className="hover:text-stone-400 block">Holy Communion</Link></li>
+                  <li><Link to="" className="hover:text-stone-400 block">Spritual Counseling</Link></li>
+                </ul>
+              )}
+            </li>
+            
+            <li>
+              <button 
+                onClick={toggleLifeEvents}
+                className="w-full text-left hover:text-stone-400 flex justify-between items-center"
+              >
+                Life Events <span>{isLifeEventsopen ? '▲' : '▼'}</span>
+              </button>
+              {isLifeEventsopen && (
+                <ul className="pl-4 mt-2 space-y-2 border-l border-stone-600">
+                  <li><Link to="" className="hover:text-stone-400 block">Weddings</Link></li>
+                  <li><Link to="" className="hover:text-stone-400 block">Funerals Services</Link></li>
+                  <li><Link to="" className="hover:text-stone-400 block">First Communion</Link></li>
+                </ul>
+              )}
+            </li>
+          </ul>
+        )}
+      </li>
+
+      {/* Members Dropdown */}
+      <li className="relative">
+        <button
+          onClick={toggleDropdown}
+          className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
+        >
+          ኣባላት ▾
+        </button>
+        {isDropdownOpen && (
+          <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-3 z-50 shadow-lg">
+            <li>
+              <Link 
+                to={token ? 'annualfee' : 'authenticate'}
+                className="hover:text-stone-400 block py-1"
+              >
+                ናይ ኣባልነት ክፍሊት
+              </Link>
+            </li>
+            <li>
+              {/* <Link 
+                to={token ? 'donate' : 'authenticate'}
+                className="hover:text-stone-400 block py-1 px-3 bg-green-700 rounded-lg text-center"
+              >
+                ወፈያ
+              </Link> */}
+            </li>
+          </ul>
+        )}
+      </li>
+
+      {/* Donate Button */}
+      <li>
+        <Link
+          to={token ? 'donate' : 'authenticate'}
+          className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
+        >
+          ወፈያ
+        </Link>
+      </li>
+    </ul>
+  </div>
+
+  {/* Mobile Hamburger Menu */}
+  <div className="lg:hidden">
+    <button 
+      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      className="text-white focus:outline-none"
+    >
+      {isMobileMenuOpen ? (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      ) : (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      )}
+    </button>
+  </div>
+
+  {/* Auth Section */}
+  <div className="flex items-center">
+ {!token ? (
+  <Link
+    to="authenticate"
+    className="hover:text-stone-400 transition-colors duration-200 p-2 rounded-full hover:bg-stone-800 flex items-center"
+    aria-label="Login"
+  >
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      fill="none" 
+      viewBox="0 0 24 24" 
+      strokeWidth={1.5} 
+      stroke="currentColor" 
+      className="w-6 h-6"
+    >
+      <path 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" 
+      />
+    </svg>
+    <span className="sr-only">Login</span>
+  </Link>
+) : (
+  <button
+    onClick={handleLogout}
+    className="hover:text-stone-400 transition-colors duration-200 p-2 rounded-full hover:bg-stone-800 flex items-center"
+    aria-label="Logout"
+  >
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      fill="none" 
+      viewBox="0 0 24 24" 
+      strokeWidth={1.5} 
+      stroke="currentColor" 
+      className="w-6 h-6"
+    >
+      <path 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" 
+      />
+    </svg>
+    <span className="sr-only">Logout</span>
+  </button>
+)}
+  </div>
+
+  {/* Mobile Menu */}
+  {isMobileMenuOpen && (
+    <div className="lg:hidden w-full mt-4 bg-nav/95 border border-stone-600 rounded-xl py-4 px-6 transition-all duration-300">
+      <ul className="space-y-4">
         <li>
-          <Link to="" className="hover:text-stone-400 font-buttons">
-            Home
-          </Link>
+          <Link to="" className="block py-2 hover:text-stone-400">ገዛ</Link>
         </li>
 
         {token && isAdmin && (
-          <li className="relative">
-            {/* <Link to="" className="hover:text-stone-400 font-buttons"> */}
-            <button
+          <li>
+            <button 
               onClick={toggleAdminDropdown}
-              className="cursor-pointer hover:text-stone-400"
+              className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
             >
-              Admin ▾
+              ኣድሚን <span>{isAdminOpen ? '▲' : '▼'}</span>
             </button>
-            {/* </Link> */}
-
             {isAdminOpen && (
-              <ul className="absolute left-0 w-70 mt-4 flex-col bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-6 z-50 transition-all duration-200 ease-in-out">
-                <li>
-                  <Link
-                    to="register"
-                    className="hover:text-stone-400 font-buttons"
-                  >
-                    Registration
-                  </Link>
-                </li>
-                <li>
-                  <Link to="post" className="hover:text-stone-400 font-buttons">
-                    CreatePost
-                  </Link>
-                </li>
+              <ul className="pl-4 mt-2 space-y-3">
+                <li><Link to="register" className="block py-1 hover:text-stone-400">ምዝገባ</Link></li>
+                <li><Link to="post" className="block py-1 hover:text-stone-400">ጽሑፍ ፍጠር</Link></li>
               </ul>
             )}
           </li>
         )}
 
-        <li className="relative">
-          <button
+        <li>
+          <button 
             onClick={toggleServicesDropdown}
-            className="cursor-pointer hover:text-stone-400 font-buttons"
+            className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
           >
-            Services ▾
+            ኣገልግሎታት <span>{isServicesDropdownOpen ? '▲' : '▼'}</span>
           </button>
-
           {isServicesDropdownOpen && (
-            <ul className="absolute left-0 w-70 mt-4 flex-col bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-6 z-50 transition-all duration-200 ease-in-out">
-              <li className="relative group">
-                <Link
-                  to=""
-                  onClick={() => {
-                    localStorage.setItem('redirectTo', ''),
-                      toggleSpirtualServices();
-                  }}
-                  className="hover:text-stone-400 font-buttons py-1 text-xl"
+            <ul className="pl-4 mt-2 space-y-4">
+              <li>
+                <button 
+                  onClick={toggleSpirtualServices}
+                  className="w-full text-left py-1 hover:text-stone-400 flex justify-between items-center"
                 >
-                  Spirtual Services
-                </Link>
+                  Spirtual Services <span>{isSpirtualopen ? '▲' : '▼'}</span>
+                </button>
                 {isSpirtualopen && (
-                  <ul className="font-titles text-lg  absolute left-68 bg-nav/95 z-50 px-4 py-1 space-y-2 w-60 rounded">
-                    <li
-                      onClick={() => {
-                        setIsSpirtualOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      Baptism
-                    </li>
-                    <li
-                      onClick={() => {
-                        setIsSpirtualOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      Holy Communion
-                    </li>
-                    <li
-                      onClick={() => {
-                        setIsSpirtualOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      Spritual Counseling
-                    </li>
+                  <ul className="pl-4 mt-2 space-y-2">
+                    <li><Link to="" className="block py-1 hover:text-stone-400">Baptism</Link></li>
+                    <li><Link to="" className="block py-1 hover:text-stone-400">Holy Communion</Link></li>
+                    <li><Link to="" className="block py-1 hover:text-stone-400">Spritual Counseling</Link></li>
                   </ul>
                 )}
               </li>
-
+              
               <li>
-                <Link
-                  to=""
-                  onClick={() => {
-                    localStorage.setItem('redirectTo', ''), toggleLifeEvents();
-                  }}
-                  className="hover:text-stone-400 font-button text-xl"
+                <button 
+                  onClick={toggleLifeEvents}
+                  className="w-full text-left py-1 hover:text-stone-400 flex justify-between items-center"
                 >
-                  Life Events / Sacraments
-                </Link>
-
+                  Life Events <span>{isLifeEventsopen ? '▲' : '▼'}</span>
+                </button>
                 {isLifeEventsopen && (
-                  <ul className="font-titles text-lg  absolute left-70 bg-nav/95 z-50 px-4 py-1 space-y-2 w-60 rounded  leading-relaxed">
-                    <li
-                      onClick={() => {
-                        setIsLifeEventsOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      Weddings
-                    </li>
-                    <li
-                      onClick={() => {
-                        setIsLifeEventsOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      Funerals Services
-                    </li>
-                    <li
-                      onClick={() => {
-                        setIsLifeEventsOpen(false),
-                          setIsServicesDropdownOpen(false);
-                      }}
-                      className="hover:cursor-pointer hover:text-stone-400 transition ease-in-out duration-75"
-                    >
-                      First Communion
-                    </li>
+                  <ul className="pl-4 mt-2 space-y-2">
+                    <li><Link to="" className="block py-1 hover:text-stone-400">Weddings</Link></li>
+                    <li><Link to="" className="block py-1 hover:text-stone-400">Funerals Services</Link></li>
+                    <li><Link to="" className="block py-1 hover:text-stone-400">First Communion</Link></li>
                   </ul>
                 )}
               </li>
@@ -220,40 +331,30 @@ const NavigationMenu = () => {
           )}
         </li>
 
-        <li className="relative">
-          <button
+        <li>
+          <button 
             onClick={toggleDropdown}
-            className="cursor-pointer hover:text-stone-400 font-buttons"
+            className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
           >
-            Support Us ▾
+            ኣባላት <span>{isDropdownOpen ? '▲' : '▼'}</span>
           </button>
-
           {isDropdownOpen && (
-            <ul className="absolute  left-0 w-70 mt-4 flex-col bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-6 z-50 transition-all duration-200 ease-in-out">
+            <ul className="pl-4 mt-2 space-y-3">
               <li>
-                <Link
+                <Link 
                   to={token ? 'annualfee' : 'authenticate'}
-                  onClick={() => {
-                    localStorage.setItem('redirectTo', 'annualfee'),
-                      closeDropdown();
-                  }}
-                  className="hover:text-stone-400 font-buttons py-1 text-xl"
+                  className="block py-1 hover:text-stone-400"
                 >
-                  Membership Fee
+                  ናይ ኣባልነት ክፍሊት
                 </Link>
               </li>
-
               <li>
-                <Link
+                {/* <Link 
                   to={token ? 'donate' : 'authenticate'}
-                  onClick={() => {
-                    localStorage.setItem('redirectTo', 'donate'),
-                      closeDropdown();
-                  }}
-                  className="hover:text-stone-400 font-buttons py-1 border rounded-lg px-3 bg-green-900 text-xl"
+                  className="block py-1 px-3 bg-green-700 rounded-lg text-center"
                 >
-                  Give Now
-                </Link>
+                  ወፈያ
+                </Link> */}
               </li>
             </ul>
           )}
@@ -262,36 +363,15 @@ const NavigationMenu = () => {
         <li>
           <Link
             to={token ? 'donate' : 'authenticate'}
-            onClick={() => {
-              localStorage.setItem('redirectTo', 'donate'), closeDropdown();
-            }}
-            className="hover:text-stone-400 font-bold border rounded-lg px-10 bg-green-500 text-2xl py-2"
+            className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
           >
-            Give Now
+            ወፈያ
           </Link>
         </li>
       </ul>
-      <div>
-        {!token ? (
-          <Link
-            to="authenticate"
-            onClick={() => {
-              localStorage.setItem('redirectTo', 'home'), handleLogin;
-            }}
-            className="hover:cursor-pointer text-3xl font-buttons"
-          >
-            Login
-          </Link>
-        ) : (
-          <span
-            onClick={handleLogout}
-            className="hover:cursor-pointer text-3xl font-buttons hover:text-stone-400"
-          >
-            Logout
-          </span>
-        )}
-      </div>
-    </nav>
+    </div>
+  )}
+</nav>
   );
 };
 
