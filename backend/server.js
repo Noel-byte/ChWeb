@@ -20,7 +20,13 @@ console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173', 'https://faithbridge.netlify.app'];
+
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, 
+}));
 app.use(express.json());
 
 app.use(passport.initialize());
