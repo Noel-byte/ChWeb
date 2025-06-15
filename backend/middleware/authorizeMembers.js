@@ -56,7 +56,7 @@ export const protect = async (req, res, next) => {
       req.user.googleid=verifiedToken.googleid
        //from verfied token get the email address
       const userEmail = verifiedToken.email;
-      req.user.isAdmin = userEmail === 'horizon33noela@gmail.com';
+      req.user.isAdmin = userEmail === 'tskeren90@gmail.com';
       next(); //advance to the next middlewar
     } catch (error) {
       res.status(401).json({ message: 'Authentication failed' });
@@ -82,7 +82,7 @@ export const checkAdmin = async (req, res, next) => {
 
       //from verfied token get the email address
       const userEmail = verifiedToken.email;
-      req.user.isAdmin = userEmail === 'horizon33noela@gmail.com';
+      req.user.isAdmin = userEmail === 'tskeren90@gmail.com';
 
       next();
     } catch (error) {
