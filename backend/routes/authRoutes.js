@@ -26,37 +26,26 @@ router.post('/google-token', async (req, res) => {
 
     // Find church member by email
     const member = await Member.findOne({ email });
-    if (!member && email !== 'horizon33noela@gmail.com') {
+    if (!member) {
       return res.status(401).json({ error: 'Member not authorized' });
     }
 
-    if (email === 'horizon33noela@gmail.com') {
-      const token = jwt.sign(
-        { email: member.email, googleid: payload.sub },
-        process.env.JWT_SECRET_KEY,
-        {
-          expiresIn: '1h',
-        }
-      );
-
-      res.json({ token });
-    } else {
-      // Optional: save googleId for member if you want
-      if (!member.googleId) {
-        member.googleId = payload.sub; // Google user ID
-        await member.save();
-      }
-      // Create your own JWT token for your app
-      const token = jwt.sign(
-        { id: member._id, email: member.email, googleid: payload.sub },
-        process.env.JWT_SECRET_KEY,
-        {
-          expiresIn: '1h',
-        }
-      );
-
-      res.json({ token });
+    // Optional: save googleId for member if you want
+    if (!member.googleId) {
+      member.googleId = payload.sub; // Google user ID
+      await member.save();
     }
+
+    // Create your own JWT token for your app
+    const token = jwt.sign(
+      { id: member._id, email: member.email, googleid: payload.sub },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: '1h',
+      }
+    );
+
+    res.json({ token });
   } catch (error) {
     console.error('Google token verification error:', error);
     res.status(401).json({ error: 'Invalid ID token' });

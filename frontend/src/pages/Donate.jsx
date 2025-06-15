@@ -86,17 +86,7 @@ const Donate = () => {
               <label htmlFor="amount" className="text-xl font-text ">
                 መጠን ባዕልኻ / ባዕልኺ የአትው:
               </label>
-              {/* <div className="relative">
-          <input
-            type="text"
-            className="w-full py-3 px-4 border border-gray-300 rounded-lg text-lg font-semibold"
-            readOnly
-            value={feeAmount}
-            name="amount"
-            id="amount"
-          />
-          <span className="absolute right-3 top-3.5 text-gray-500 font-medium">CAD</span>
-        </div> */}
+   
               <div  className='relative'>
                 <input
                   type="text"

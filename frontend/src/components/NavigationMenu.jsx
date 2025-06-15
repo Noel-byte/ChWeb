@@ -97,7 +97,7 @@ const NavigationMenu = () => {
           </li>
 
           {/* Admin Dropdown */}
-          {token && isAdmin && (
+          {/* {token && isAdmin && ( */}
             <li className="relative">
               <button
                 onClick={toggleAdminDropdown}
@@ -105,7 +105,7 @@ const NavigationMenu = () => {
               >
                 ኣድሚን ▾
               </button>
-              {isAdminOpen && (
+              {/* {isAdminOpen && ( */}
                 <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-3 z-50 shadow-lg">
                   <li>
                     <Link
@@ -121,9 +121,9 @@ const NavigationMenu = () => {
                     </Link>
                   </li>
                 </ul>
-              )}
+              {/* )} */}
             </li>
-          )}
+           {/* )} */}
 
           {/* Services Dropdown */}
           <li className="relative">
