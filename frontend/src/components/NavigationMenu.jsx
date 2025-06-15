@@ -321,7 +321,7 @@ const NavigationMenu = () => {
           <ul className="space-y-4">
             <li>
               <Link to="" className="block py-2 hover:text-stone-400">
-                ገዛ
+               Home / ገዛ
               </Link>
             </li>
 
