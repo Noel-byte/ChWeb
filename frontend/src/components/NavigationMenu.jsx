@@ -92,7 +92,7 @@ const NavigationMenu = () => {
               to=""
               className="hover:text-stone-400 transition-colors duration-200"
             >
-              ገዛ
+             Home / ገዛ
             </Link>
           </li>
 
@@ -103,7 +103,7 @@ const NavigationMenu = () => {
                 onClick={toggleAdminDropdown}
                 className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
               >
-                ኣድሚን ▾
+               Admin / ኣድሚን ▾
               </button>
               {isAdminOpen && (
                 <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-3 z-50 shadow-lg">
@@ -112,12 +112,12 @@ const NavigationMenu = () => {
                       to="register"
                       className="hover:text-stone-400 block py-1"
                     >
-                      ምዝገባ
+                     Registration / ምዝገባ
                     </Link>
                   </li>
                   <li>
                     <Link to="post" className="hover:text-stone-400 block py-1">
-                      ጽሑፍ ፍጠር
+                     Create Post / ጽሑፍ ፍጠር
                     </Link>
                   </li>
                 </ul>
@@ -131,7 +131,7 @@ const NavigationMenu = () => {
               onClick={toggleServicesDropdown}
               className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
             >
-              ኣገልግሎታት ▾
+             Services / ኣገልግሎታት ▾
             </button>
             {isServicesDropdownOpen && (
               <ul className="absolute left-0 w-60 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-4 z-50 shadow-lg">
@@ -200,7 +200,7 @@ const NavigationMenu = () => {
               onClick={toggleDropdown}
               className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
             >
-              ኣባላት ▾
+             Members / ኣባላት ▾
             </button>
             {isDropdownOpen && (
               <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-3 z-50 shadow-lg">
@@ -209,16 +209,8 @@ const NavigationMenu = () => {
                     to={token ? 'annualfee' : 'authenticate'}
                     className="hover:text-stone-400 block py-1"
                   >
-                    ናይ ኣባልነት ክፍሊት
+                   Members Fee / ናይ ኣባልነት ክፍሊት
                   </Link>
-                </li>
-                <li>
-                  {/* <Link 
-                to={token ? 'donate' : 'authenticate'}
-                className="hover:text-stone-400 block py-1 px-3 bg-green-700 rounded-lg text-center"
-              >
-                ወፈያ
-              </Link> */}
                 </li>
               </ul>
             )}
@@ -230,7 +222,7 @@ const NavigationMenu = () => {
               to={token ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
             >
-              ወፈያ
+             Give Now / ወፈያ
             </Link>
           </li>
         </ul>
@@ -339,7 +331,7 @@ const NavigationMenu = () => {
                   onClick={toggleAdminDropdown}
                   className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
                 >
-                  ኣድሚን <span>{isAdminOpen ? '▲' : '▼'}</span>
+                  Admin / ኣድሚን <span>{isAdminOpen ? '▲' : '▼'}</span>
                 </button>
                 {isAdminOpen && (
                   <ul className="pl-4 mt-2 space-y-3">
@@ -348,7 +340,7 @@ const NavigationMenu = () => {
                         to="register"
                         className="block py-1 hover:text-stone-400"
                       >
-                        ምዝገባ
+                       Registration / ምዝገባ
                       </Link>
                     </li>
                     <li>
@@ -356,7 +348,7 @@ const NavigationMenu = () => {
                         to="post"
                         className="block py-1 hover:text-stone-400"
                       >
-                        ጽሑፍ ፍጠር
+                       Creat Post / ጽሑፍ ፍጠር
                       </Link>
                     </li>
                   </ul>
@@ -369,7 +361,7 @@ const NavigationMenu = () => {
                 onClick={toggleServicesDropdown}
                 className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
               >
-                ኣገልግሎታት <span>{isServicesDropdownOpen ? '▲' : '▼'}</span>
+               Services / ኣገልግሎታት <span>{isServicesDropdownOpen ? '▲' : '▼'}</span>
               </button>
               {isServicesDropdownOpen && (
                 <ul className="pl-4 mt-2 space-y-4">
@@ -456,7 +448,7 @@ const NavigationMenu = () => {
                 onClick={toggleDropdown}
                 className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
               >
-                ኣባላት <span>{isDropdownOpen ? '▲' : '▼'}</span>
+               Members / ኣባላት <span>{isDropdownOpen ? '▲' : '▼'}</span>
               </button>
               {isDropdownOpen && (
                 <ul className="pl-4 mt-2 space-y-3">
@@ -465,7 +457,7 @@ const NavigationMenu = () => {
                       to={token ? 'annualfee' : 'authenticate'}
                       className="block py-1 hover:text-stone-400"
                     >
-                      ናይ ኣባልነት ክፍሊት
+                     Members Fee / ናይ ኣባልነት ክፍሊት
                     </Link>
                   </li>
                 </ul>
@@ -477,7 +469,7 @@ const NavigationMenu = () => {
                 to={token ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
               >
-                ወፈያ
+                Give Now / ወፈያ
               </Link>
             </li>
           </ul>
