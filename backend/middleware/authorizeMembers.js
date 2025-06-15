@@ -57,7 +57,8 @@ export const protect = async (req, res, next) => {
        //from verfied token get the email address
       const userEmail = verifiedToken.email;
     req.user.isAdmin = 
-  userEmail === 'tskeren90@gmail.com' || userEmail === 'horizon33noela@gmail.com';
+  userEmail === 'tskeren90@gmail.com';
+  //  || userEmail === 'horizon33noela@gmail.com';
 
       next(); //advance to the next middlewar
     } catch (error) {
