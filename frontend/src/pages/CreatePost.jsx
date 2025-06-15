@@ -21,7 +21,7 @@ const CreatePost = () => {
     //make a post request
     axios
       .post(`${urlremote}/api/admin/post`, { content })
-      .then((response) => console.log(response.data))
+      .then((response) => {console.log(response.data);setContent('')})
       .catch((error) => console.log(error));
   };
 
