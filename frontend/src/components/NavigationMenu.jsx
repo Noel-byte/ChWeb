@@ -222,7 +222,7 @@ const NavigationMenu = () => {
               to={token ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
             >
-             Give Now / ወፈያ
+             Donate / ወፈያ
             </Link>
           </li>
         </ul>
@@ -469,7 +469,7 @@ const NavigationMenu = () => {
                 to={token ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
               >
-                Give Now / ወፈያ
+                Donate / ወፈያ
               </Link>
             </li>
           </ul>
