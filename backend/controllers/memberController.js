@@ -1,15 +1,14 @@
 import Member from '../models/Members.js';
-import Payment from '../models/Payments.js'
-import Donation from '../models/Donations.js'
-import Post from '../models/Posts.js'
+import Payment from '../models/Payments.js';
+import Donation from '../models/Donations.js';
+import Post from '../models/Posts.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import Stripe from 'stripe';
 // const YOUR_DOMAIN = 'http://localhost:5173';
+const YOUR_DOMAIN = process.env.CLIENT_URL;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const createMember = async (req, res) => {
-
-
   // console.log('Incoming form data: ',req.body)
   const {
     memberid,
@@ -29,7 +28,9 @@ const createMember = async (req, res) => {
 
   // Optionally, add logic like:
   if (membershiptype === 'Single' && spouse) {
-    return res.status(400).json({ message: 'Single members should not include spouse info' });
+    return res
+      .status(400)
+      .json({ message: 'Single members should not include spouse info' });
   }
   const newMember = new Member({
     memberid,
@@ -52,51 +53,49 @@ const createMember = async (req, res) => {
   const saveMember = await newMember.save(); //saves the new member to the database
 
   if (saveMember) {
-    res.status(201).json({ message: 'Member registered successfully' ,member:newMember});
+    res
+      .status(201)
+      .json({ message: 'Member registered successfully', member: newMember });
   } else {
     res.status(400);
     throw new Error('Invalid data');
   }
 };
 
-const getPost = async(req,res)=>{
-        try{
-          const posts = await Post.find()
-          res.status(200).json({posts})
-        }catch(err){
-          res.status(500).json({message:'server error'})
-        }
-}
+const getPost = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json({ posts });
+  } catch (err) {
+    res.status(500).json({ message: 'server error' });
+  }
+};
 
 const getMember = async (req, res) => {
   //get the id from the request body
-  const id = req.user.id; //from url params 
-  const {isAdmin} = req.user
-  console.log(isAdmin)
+  const id = req.user.id; //from url params
+  const { isAdmin } = req.user;
+  console.log(isAdmin);
 
-  try{
-const member = await Member.findById(id)
+  try {
+    const member = await Member.findById(id);
 
-  if(!member){
-    return res.status(404).json({message:'Member not found'})
+    if (!member) {
+      return res.status(404).json({ message: 'Member not found' });
+    }
+    //then get user by using memberid
+    console.log('member found with googleid:', member.googleId);
+    res.status(200).json({ member, isAdmin });
+  } catch (error) {
+    console.log('error fetching member: ', error);
+    res.status(500).json({ message: 'Server error' });
   }
-  //then get user by using memberid
-  console.log('member found with googleid:', member.googleId);
-  res.status(200).json({member,isAdmin})
-  }catch(error){
-    console.log('error fetching member: ',error)
-    res.status(500).json({message:'Server error'})
-  }
-
-  
 };
 
-const processPayment =  async (req, res) => {
-  const {amount } = req.body;
-  const id = req.user.id
-console.log("googleid: ",req.user.googleid)
-
-
+const processPayment = async (req, res) => {
+  const { amount } = req.body;
+  const id = req.user.id;
+  console.log('googleid: ', req.user.googleid);
 
   try {
     const user = await Member.findById(id);
@@ -135,26 +134,25 @@ console.log("googleid: ",req.user.googleid)
 
     //save the payment to the database
     const newPayment = new Payment({
-      member:id,
-      amount:parseFloat(amount),
-      status:'Payed'
-    })
+      member: id,
+      amount: parseFloat(amount),
+      status: 'Payed',
+    });
 
-     await newPayment.save()    //save
+    await newPayment.save(); //save
 
-    res.status(200).json({ url: session.url});
+    res.status(200).json({ url: session.url });
   } catch (error) {
     console.error('Stripe session error:', error);
     res.status(500).json({ error: 'Something went wrong with Stripe' });
   }
-}
+};
 
 const processDonation = async (req, res) => {
-  const {amount } = req.body;
+  const { amount } = req.body;
   // const {googleid} = req.user.googleid
 
   try {
-
     //create stripe customer
     const customer = await stripe.customers.create({
       email: req.user.email,
@@ -185,11 +183,11 @@ const processDonation = async (req, res) => {
     //save donation to the database
     const newDonation = new Donation({
       // googleid,
-      email:req.user.email,
-      amount:parseFloat(amount)
-    })
+      email: req.user.email,
+      amount: parseFloat(amount),
+    });
 
-     await newDonation.save()   //save donation to the database
+    await newDonation.save(); //save donation to the database
 
     res.status(200).json({ url: session.url });
   } catch (error) {
@@ -198,5 +196,4 @@ const processDonation = async (req, res) => {
   }
 };
 
-
-export {createMember,getMember,processPayment,processDonation,getPost};
+export { createMember, getMember, processPayment, processDonation, getPost };
