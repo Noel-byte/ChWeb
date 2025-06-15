@@ -1,4 +1,4 @@
-import Admin from '../models/Admin.js';
+
 import Post from '../models/Posts.js';
 import jwt from 'jsonwebtoken';
 
@@ -34,4 +34,4 @@ const createPost = async (req, res) => {
   }
 };
 
-export { loginUser, createPost };
+export { createPost };
