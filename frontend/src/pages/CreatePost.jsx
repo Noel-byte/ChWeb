@@ -42,7 +42,7 @@ const CreatePost = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-gray-100">
           <button
             onClick={createPost}
-            className={`px-6 py-3 rounded-lg font-bold text-white transition-all duration-300 min-w-[150px] ${'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transform hover:scale-[1.02]'}`}
+            className={`px-6 py-3 rounded-lg font-bold text-white transition-all hover:cursor-pointer duration-300 min-w-[150px] ${'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transform hover:scale-[1.02]'}`}
           >
             Submit Post
           </button>
