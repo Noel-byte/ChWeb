@@ -23,7 +23,7 @@ const RouteLayout = () => {
   {/* Welcome message */}
   <div className="relative z-10 pt-24 pb-8 px-4 text-center md:pt-32">
     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-titles text-stone-300 leading-tight">
-      ቅዱስ ቁርባን ካቶኪካዊት ቤተክርስትያን
+      Assumption of Mary Geez Rite Eritrean Catholic of Edmonton
     </h1>
     <p className="text-base sm:text-lg md:text-xl mt-3 text-stone-200 font-mono max-w-3xl mx-auto">
       "A house of prayer for all people" - Isaiah 56:7
