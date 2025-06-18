@@ -1,11 +1,13 @@
 import React from 'react';
 import { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
 import MyContext from './MyContext';
 import axios from 'axios';
-// const urlremote = `http://localhost:5000`;
+import { LanguageContext } from './LanguageContext';
+// const urllocal = `http://localhost:5000`;
 const urlremote = `https://faithbridge.onrender.com`;
 
 const NavigationMenu = () => {
@@ -16,6 +18,10 @@ const NavigationMenu = () => {
   const [isSpirtualopen, setIsSpirtualOpen] = useState(false);
   const [isLifeEventsopen, setIsLifeEventsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const {language,changeLang} = useContext(LanguageContext)
+
+  const { t} = useTranslation();
+  // const [activeLang, setActiveLang] = useState(language||'en');
 
   const navigate = useNavigate();
 
@@ -81,6 +87,11 @@ const NavigationMenu = () => {
     navigate('/');
   };
 
+  // const changeLang = (lng) => {
+  //   i18n.changeLanguage(lng);
+  //   setActiveLang(lng);
+  // };
+
   return (
     <nav className="fixed top-0 left-0 z-20 w-screen text-white px-4 lg:px-10 py-4 font-button bg-nav backdrop-blur-md flex flex-wrap justify-between items-center">
       {/* Desktop Menu */}
@@ -92,7 +103,7 @@ const NavigationMenu = () => {
               to=""
               className="hover:text-stone-400 transition-colors duration-200"
             >
-             Home / ገዛ
+              {t('home')}
             </Link>
           </li>
 
@@ -103,7 +114,7 @@ const NavigationMenu = () => {
                 onClick={toggleAdminDropdown}
                 className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
               >
-               Admin / ኣድሚን ▾
+                {t('admin')}
               </button>
               {isAdminOpen && (
                 <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-2 space-y-3 z-50 shadow-lg">
@@ -112,12 +123,12 @@ const NavigationMenu = () => {
                       to="register"
                       className="hover:text-stone-400 block py-1"
                     >
-                     Registration / ምዝገባ
+                     {t('registration')}
                     </Link>
                   </li>
                   <li>
                     <Link to="post" className="hover:text-stone-400 block py-1">
-                     Create Post / ጽሑፍ ፍጠር
+                      {t('post')}
                     </Link>
                   </li>
                 </ul>
@@ -131,7 +142,7 @@ const NavigationMenu = () => {
               onClick={toggleServicesDropdown}
               className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
             >
-             Services / ኣገልግሎታት ▾
+              {t('services')}
             </button>
             {isServicesDropdownOpen && (
               <ul className="absolute left-0 w-60 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-4 z-50 shadow-lg">
@@ -200,7 +211,7 @@ const NavigationMenu = () => {
               onClick={toggleDropdown}
               className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
             >
-             Members / ኣባላት ▾
+              {t('members')}
             </button>
             {isDropdownOpen && (
               <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-3 z-50 shadow-lg">
@@ -209,7 +220,7 @@ const NavigationMenu = () => {
                     to={token ? 'annualfee' : 'authenticate'}
                     className="hover:text-stone-400 block py-1"
                   >
-                   Members Fee / ናይ ኣባልነት ክፍሊት
+                    {t('membersfee')}
                   </Link>
                 </li>
               </ul>
@@ -222,9 +233,10 @@ const NavigationMenu = () => {
               to={token ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
             >
-             Donate / ወፈያ
+              {t('donate')}
             </Link>
           </li>
+        
         </ul>
       </div>
 
@@ -265,6 +277,29 @@ const NavigationMenu = () => {
           )}
         </button>
       </div>
+{/* language toggle section */}
+        <div className="inline-flex rounded-lg overflow-hidden border border-gray-300 shadow-sm">
+            <button
+              onClick={() => changeLang('en')}
+              className={`px-4 py-2 text-sm font-medium ${
+                language === 'en'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => changeLang('tg')}
+              className={`px-4 py-2 text-sm font-medium ${
+                language === 'tg'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              ትግርኛ
+            </button>
+          </div>
 
       {/* Auth Section */}
       <div className="flex items-center">
@@ -321,7 +356,7 @@ const NavigationMenu = () => {
           <ul className="space-y-4">
             <li>
               <Link to="" className="block py-2 hover:text-stone-400">
-               Home / ገዛ
+                {t('home')}
               </Link>
             </li>
 
@@ -331,7 +366,7 @@ const NavigationMenu = () => {
                   onClick={toggleAdminDropdown}
                   className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
                 >
-                  Admin / ኣድሚን <span>{isAdminOpen ? '▲' : '▼'}</span>
+                  {t('admin')} <span>{isAdminOpen ? '▲' : '▼'}</span>
                 </button>
                 {isAdminOpen && (
                   <ul className="pl-4 mt-2 space-y-3">
@@ -340,7 +375,7 @@ const NavigationMenu = () => {
                         to="register"
                         className="block py-1 hover:text-stone-400"
                       >
-                       Registration / ምዝገባ
+                        {t('registration')}
                       </Link>
                     </li>
                     <li>
@@ -348,7 +383,7 @@ const NavigationMenu = () => {
                         to="post"
                         className="block py-1 hover:text-stone-400"
                       >
-                       Creat Post / ጽሑፍ ፍጠር
+                        {t('post')}
                       </Link>
                     </li>
                   </ul>
@@ -361,7 +396,8 @@ const NavigationMenu = () => {
                 onClick={toggleServicesDropdown}
                 className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
               >
-               Services / ኣገልግሎታት <span>{isServicesDropdownOpen ? '▲' : '▼'}</span>
+                {t('services')}{' '}
+                <span>{isServicesDropdownOpen ? '▲' : '▼'}</span>
               </button>
               {isServicesDropdownOpen && (
                 <ul className="pl-4 mt-2 space-y-4">
@@ -448,7 +484,7 @@ const NavigationMenu = () => {
                 onClick={toggleDropdown}
                 className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
               >
-               Members / ኣባላት <span>{isDropdownOpen ? '▲' : '▼'}</span>
+                {t('members')} <span>{isDropdownOpen ? '▲' : '▼'}</span>
               </button>
               {isDropdownOpen && (
                 <ul className="pl-4 mt-2 space-y-3">
@@ -457,7 +493,7 @@ const NavigationMenu = () => {
                       to={token ? 'annualfee' : 'authenticate'}
                       className="block py-1 hover:text-stone-400"
                     >
-                     Members Fee / ናይ ኣባልነት ክፍሊት
+                      {t('membersfee')}
                     </Link>
                   </li>
                 </ul>
@@ -469,7 +505,7 @@ const NavigationMenu = () => {
                 to={token ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
               >
-                Donate / ወፈያ
+                {t('donate')}
               </Link>
             </li>
           </ul>

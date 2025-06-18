@@ -2,11 +2,13 @@ import React from 'react';
 import MyContext from '../components/MyContext';
 import { useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const PaymentSuccess = () => {
   const dialogRef = useRef(null);
    const navigate = useNavigate();
    const [isDialogOpen,setIsDialogOpen] = useState(true)
+   const {t} = useTranslation()
  
    // useEffect(() => {
    //   if (dialogRef.current) {
@@ -48,10 +50,10 @@ const PaymentSuccess = () => {
  
        {/* Message */}
        <h1 className="text-center font-titles text-2xl text-emerald-900 mb-4">
-         ስለቲ ክፍሊት ይቐንየልና !
+         {t('thanksforpayment')}
        </h1>
        <p className="text-center text-gray-600 mb-6">
-         ናይ ኣባልነት ክፍሊትካ ብዓወት ተሰሪሑ ኣሎ ። ናብ ኢመይልካ መረጋገጺ ተላኢኹ ኣሎ ።
+         {t('paymentmessage')}
        </p>
  
        {/* Close button */}
@@ -60,7 +62,7 @@ const PaymentSuccess = () => {
            onClick={closeDialog}
            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-colors duration-300"
          >
-           ዕጸው
+           {t('close')}
          </button>
        </div>
  

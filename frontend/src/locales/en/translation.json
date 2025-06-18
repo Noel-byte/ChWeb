@@ -1,0 +1,32 @@
+{
+    "home":"Home",
+    "services":"Services",
+    "members":"Members",
+    "donate":"Donate",
+    "membersfee":"Members Fee",
+    "admin":"Admin",
+    "registration":"Registration",
+    "post":"Create Post",
+    "submitpost":"Submit Post",
+    "membershipannualfee":"Membership Annual Fee",
+    "amount":"Amount",
+    "memberinfo":"Member Information",
+    "firstname":"First Name",
+    "lastname":"Last Name",
+    "email":"E-mail",
+    "membershiptype":"Membership Type",
+    "paynow":"Pay Now",
+    "donationheader":"Thank you for donating !",
+    "or":"OR",
+    "new":"NEW",
+    "thanksforpayment":"Thank you for the payment !",
+    "paymentmessage":"Your payment has been successfully processed",
+    "close":"Close",
+    "thanksfordonation":"Thank you for generaous donation !",
+    "donationmessage":"Your donation helps to continue our mission and reach more people",
+    "homepageheader":"Assumption of Mary Geez Rite Eritrean Catholic Church of Edmonton",
+    "homepagemessage":" A house of prayer for all people",
+    "name":"- Isaiah 56:7"
+    
+
+}

@@ -36,9 +36,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoute);
 app.use('/api/admin', adminRoutes);
 
-// app.get('/',(req,res)=>{
-//   res.send('Backend is running')
-// })
+
 
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;

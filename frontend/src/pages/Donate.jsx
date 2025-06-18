@@ -3,11 +3,13 @@ import Input from '../components/Input';
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import MyContext from '../components/MyContext';
-// const urlremote = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`
+import { useTranslation } from 'react-i18next';
+// const urllocal = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`;
 
 const Donate = () => {
   const [amount, setAmount] = useState(0);
+  const {t} = useTranslation()
   const [errorMessage, setErrorMessage] = useState({
     amterr: undefined,
   });
@@ -55,7 +57,7 @@ const Donate = () => {
       <div className="w-11/12 md:w-3/4 px-6 py-8 rounded-lg shadow-xl space-y-4 border bg-stone-50 ">
         {/* <h3 className="text-center  text-2xl">Church Logo</h3> */}
         <h1 className="text-center text-2xl  font-titles">
-          ን ኣገልግሎት ስለ ስደገፍኩም የቐንየልና
+          {t('donationheader')}
         </h1>
         {/* <hr className="border-gray-400" /> */}
 
@@ -76,7 +78,7 @@ const Donate = () => {
           {/* OR separator */}
           <div className="flex items-center gap-4">
             <div className="flex-1 h-px bg-gray-300"></div>
-            <span className="font-text text-gray-400">ወይ</span>
+            <span className="font-text text-gray-400">{t('or')}</span>
             <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
@@ -84,7 +86,7 @@ const Donate = () => {
           <div className="flex flex-col items-center gap-2">
             <div className="flex flex-wrap justify-center items-center gap-3 w-full">
               <label htmlFor="amount" className="text-xl font-text ">
-                መጠን ባዕልኻ / ባዕልኺ የአትው:
+                {t('amount')}
               </label>
    
               <div  className='relative'>
@@ -110,7 +112,7 @@ const Donate = () => {
             className="w-1/2 border m-auto block bg-white text-dark text-xl px-6 py-2 rounded-lg font-buttons hover:bg-dark hover:text-white hover:cursor-pointer"
             onClick={handleDonate}
           >
-            ሕጂ ወፈያ
+            {t('paynow')}
           </button>
 
           <h4 className="text-center font-titles text-white">

@@ -16,6 +16,7 @@ import AdminRegister from './pages/AdminRegister';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 
+
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
   const [admintoken, setAdminToken] = useState();
@@ -108,6 +109,7 @@ function App() {
         setIsAdminOpen,
       }}
     >
+      
       <RouterProvider router={router} />
     </MyContext>
   );

@@ -56,8 +56,9 @@ export const protect = async (req, res, next) => {
       req.user.googleid=verifiedToken.googleid
        //from verfied token get the email address
       const userEmail = verifiedToken.email;
-    req.user.isAdmin = 
-  userEmail === 'tskeren90@gmail.com';
+    // req.user.isAdmin =  userEmail === 'tskeren90@gmail.com';
+      req.user.isAdmin = ['tskeren90@gmail.com','horizon33noela@gmail.com'].includes(userEmail)
+
   //  || userEmail === 'horizon33noela@gmail.com';
 
       next(); //advance to the next middlewar
@@ -69,29 +70,30 @@ export const protect = async (req, res, next) => {
   }
 };
 
-export const checkAdmin = async (req, res, next) => {
-  let token;
-  //verify if there is an authorization headers
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    try {
-      //get the token from the header
-      token = req.headers.authorization.split(' ')[1];
+// export const checkAdmin = async (req, res, next) => {
+//   let token;
+//   //verify if there is an authorization headers
+//   if (
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith('Bearer')
+//   ) {
+//     try {
+//       //get the token from the header
+//       token = req.headers.authorization.split(' ')[1];
 
-      //verify the token
-      const verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+//       //verify the token
+//       const verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-      //from verfied token get the email address
-      const userEmail = verifiedToken.email;
-      req.user.isAdmin = userEmail === 'tskeren90@gmail.com';
+//       //from verfied token get the email address
+//       const userEmail = verifiedToken.email;
+//       // req.user.isAdmin = (userEmail === 'tskeren90@gmail.com'||userEmail==='horizon33noela@gmail.com');
+//       req.user.isAdmin = ['tskeren90@gmail.com','horizon33noela@gmail.com'].includes(userEmail)
 
-      next();
-    } catch (error) {
-      res.status(401).json({ message: 'Authorization failed' });
-    }
-  } else {
-    res.status(401).json({ message: 'Not Authorized' });
-  }
-};
+//       next();
+//     } catch (error) {
+//       res.status(401).json({ message: 'Authorization failed' });
+//     }
+//   } else {
+//     res.status(401).json({ message: 'Not Authorized' });
+//   }
+// };

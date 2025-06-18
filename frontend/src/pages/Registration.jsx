@@ -9,8 +9,8 @@ import FileUpload from '../components/FileUpload';
 // import { useActionState } from 'react';
 // import { isEmail, isEmpty } from '../util/validation';
 
-// const urlremote = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`
+// const urllocal = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`;
 
 const Registration = () => {
   const { setIsAdminOpen } = useContext(MyContext);

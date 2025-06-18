@@ -3,8 +3,8 @@ import { useState,useContext } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../components/MyContext';
-// const urlremote = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`
+// const urllocal = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`;
 
 
 const AdminRegister = () => {

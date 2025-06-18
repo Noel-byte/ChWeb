@@ -3,12 +3,17 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import MyContext from '../components/MyContext';
 import BlogEditor from '../components/BlogEditor';
 import axios from 'axios';
-// const urlremote = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`
+import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
+import '../i18n';
+// const urllocal = `http://localhost:5000`;
+const urlremote = `https://faithbridge.onrender.com`;
 
 const CreatePost = () => {
   const [content, setContent] = useState('');
   const { setIsAdminOpen } = useContext(MyContext);
+const { t} = useTranslation();
+  //  const { t, i18n } = useTranslation();
 
   const handleChange = useCallback((newValue) => {
     console.log(newValue);
@@ -32,7 +37,7 @@ const CreatePost = () => {
     <div className="pb-10 px-4 flex flex-col items-center min-h-screen">
       <div className="w-full max-w-4xl bg-white rounded-xl border border-gray-200 shadow-lg p-6 md:p-8">
         <h1 className="text-center text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-          Create a Post
+          {t('post')}
         </h1>
 
         <div className="mb-6">
@@ -44,7 +49,7 @@ const CreatePost = () => {
             onClick={createPost}
             className={`px-6 py-3 rounded-lg font-bold text-white transition-all hover:cursor-pointer duration-300 min-w-[150px] ${'bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transform hover:scale-[1.02]'}`}
           >
-            Submit Post
+            {t('submitpost')}
           </button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 
 import express from 'express'
 import  {createMember,getMember,processPayment,processDonation,getPost}  from '../controllers/memberController.js';
-import { authorize,checkAdmin,protect } from '../middleware/authorizeMembers.js';
+import {protect } from '../middleware/authorizeMembers.js';
 
 const router = express.Router();
 

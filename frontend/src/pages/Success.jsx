@@ -1,11 +1,13 @@
 import MyContext from '../components/MyContext';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Success = () => {
   const dialogRef = useRef(null);
   const navigate = useNavigate();
   const [isOpen,setIsOpen] = useState(true)
+  const {t} = useTranslation()
 
   // useEffect(() => {
   //   if (dialogRef.current) {
@@ -47,10 +49,10 @@ const Success = () => {
 
       {/* Message */}
       <h1 className="text-center font-titles text-2xl text-emerald-900 mb-4">
-        ስለቲ ዝገበርኩምዎ ልግሲ የቐንየልና!
+        {t('thanksfordonation')}
       </h1>
       <p className="text-center text-gray-600 mb-6">
-        ናትኩም ደገፍ ትልአኾና ክንቅጽልን ንሕብረተሰብ ከነገልግልን ይሕግዘና ።
+       {t('donationmessage')}
       </p>
 
       {/* Close button */}
@@ -59,7 +61,7 @@ const Success = () => {
           onClick={closeDialog}
           className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-colors duration-300"
         >
-          ዕጸው
+          {t('close')}
         </button>
       </div>
 

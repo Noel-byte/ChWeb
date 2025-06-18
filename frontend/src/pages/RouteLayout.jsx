@@ -3,8 +3,10 @@ import { Outlet } from 'react-router-dom';
 import NavigationMenu from '../components/NavigationMenu';
 import Footer from '../components/Footer';
 import churchImage from '../assets/church.jpg';
+import { useTranslation } from 'react-i18next';
 
 const RouteLayout = () => {
+  const {t} = useTranslation()
   return (
     <>
     <div className="relative min-h-screen flex flex-col">
@@ -23,10 +25,10 @@ const RouteLayout = () => {
   {/* Welcome message */}
   <div className="relative z-10 pt-24 pb-8 px-4 text-center md:pt-32">
     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-titles text-stone-300 leading-tight">
-      Assumption of Mary Geez Rite Eritrean Catholic Church of Edmonton
+      {t('homepageheader')}
     </h1>
     <p className="text-base sm:text-lg md:text-xl mt-3 text-stone-200 font-mono max-w-3xl mx-auto">
-      "A house of prayer for all people" - Isaiah 56:7
+      "{t('homepagemessage')}" {t('name')}
     </p>
     <div className="mt-6 w-24 h-0.5 bg-stone-500 mx-auto"></div>
   </div>

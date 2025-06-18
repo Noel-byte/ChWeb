@@ -5,7 +5,7 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import MyContext from './MyContext';
 import { useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-// const urlremote = `http://localhost:5000`;
+// const urllocal = `http://localhost:5000`;
 const urlremote = `https://faithbridge.onrender.com`;
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
