@@ -4,22 +4,21 @@ import MyContext from '../components/MyContext';
 import BlogEditor from '../components/BlogEditor';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-// import { useTranslation } from 'react-i18next';
 import '../i18n';
 
 const CreatePost = () => {
   const { setIsAdminOpen, content, setContent } = useContext(MyContext);
   const { t } = useTranslation();
-  //  const { t, i18n } = useTranslation();
+ 
 
 
   const handleChange = useCallback((newValue) => {
-    // console.log(newValue);
+
     setContent(newValue);
   }, []);
 
   const createPost = () => {
-    // e.preventDefault();
+
 
     //make a post request
     axios

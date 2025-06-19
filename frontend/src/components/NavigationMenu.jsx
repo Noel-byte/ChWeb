@@ -20,11 +20,11 @@ const NavigationMenu = () => {
   const {language,changeLang} = useContext(LanguageContext)
 
   const { t} = useTranslation();
-  // const [activeLang, setActiveLang] = useState(language||'en');
+
 
   const navigate = useNavigate();
 
-  // console.log(userInfo.email);
+ 
 
   const toggleAdminDropdown = () => {
     setIsAdminOpen((prev) => !prev);
@@ -53,14 +53,7 @@ const NavigationMenu = () => {
     setIsAdminOpen(false);
   };
 
-  // const closeDropdown = () => {
-  //   setIsDropdownOpen(false);
-  // };
 
-  // const handleLogin = () => {
-  //   localStorage.setItem('token', token);
-  //   setToken(token);
-  // };
 
   useEffect(() => {
     //load member details
@@ -86,10 +79,7 @@ const NavigationMenu = () => {
     navigate('/');
   };
 
-  // const changeLang = (lng) => {
-  //   i18n.changeLanguage(lng);
-  //   setActiveLang(lng);
-  // };
+
 
   return (
     <nav className="fixed top-0 left-0 z-20 w-screen text-white px-4 lg:px-10 py-4 font-button bg-nav backdrop-blur-md flex flex-wrap justify-between items-center">
