@@ -5,8 +5,8 @@ import Post from '../models/Posts.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import Stripe from 'stripe';
-const YOUR_DOMAIN = 'http://localhost:5173';
-// const YOUR_DOMAIN = process.env.CLIENT_URL;
+// const YOUR_DOMAIN = 'http://localhost:5173';
+const YOUR_DOMAIN = process.env.CLIENT_URL;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const createMember = async (req, res) => {
   // console.log('Incoming form data: ',req.body)
