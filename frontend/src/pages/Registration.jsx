@@ -6,11 +6,9 @@ import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
 import FileUpload from '../components/FileUpload';
-// import { useActionState } from 'react';
-// import { isEmail, isEmpty } from '../util/validation';
 
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
+
+
 
 const Registration = () => {
   const { setIsAdminOpen } = useContext(MyContext);
@@ -57,137 +55,6 @@ const Registration = () => {
     spouseMiddleName: true,
   });
 
-  // const registerAction = (prevFormState, formData) => {
-  //   const memberId = formData.get('memid');
-  //   const firstName = formData.get('firstname');
-  //   const middleName = formData.get('middlename');
-  //   const lastName = formData.get('lastname');
-  //   const email = formData.get('email');
-  //   const phone = formData.get('phone');
-  //   const city = formData.get('city');
-  //   const province = formData.get('province');
-  //   const postalCode = formData.get('postalcode');
-  //   const address = formData.get('address');
-  //   const startDate = formData.get('startdate');
-  //   const membershipType = formData.get('memtype');
-  //   const membershipFee = formData.get('memfee');
-  //   const maritalStatus = formData.get('maritalstatus');
-  //   const spousefirstname = formData.get('spousefirstname');
-  //   const spouselastname = formData.get('spouselastname');
-  //   const spousemiddlename = formData.get('spousemiddlename');
-  //   const spouse = { spousefirstname, spousemiddlename, spouselastname };
-
-  //   const churMem = {
-  //     memberid: memberId,
-  //     firstname: firstName,
-  //     lastname: lastName,
-  //     middlename: middleName,
-  //     email: email,
-  //     phone: phone,
-  //     maritalstatus: maritalStatus,
-  //     city: city,
-  //     province: province,
-  //     postalcode: postalCode,
-  //     address: address,
-  //     startdate: startDate,
-  //     membershipfee: membershipFee,
-  //     membershiptype: membershipType,
-  //     spouse,
-  //   };
-
-  //   let errors = [];
-
-  //   if (isEmpty(memberId)) {
-  //     errors.push('Please provide member Id');
-  //   }
-  //   if (!isEmail(email)) {
-  //     errors.push('Invalid email address');
-  //   }
-  //   if (isEmpty(firstName) || isEmpty(lastName) || isEmpty(middleName)) {
-  //     errors.push('Please provide Firstname , lastname and middlename');
-  //   }
-  //   if (
-  //     isEmpty(city) ||
-  //     isEmpty(province) ||
-  //     isEmpty(postalCode) ||
-  //     isEmpty(address)
-  //   ) {
-  //     errors.push('Please provide City , province , postalcode and  address');
-  //   }
-  //   if (isEmpty(phone)) {
-  //     errors.push('Please provide phone number');
-  //   }
-  //   if (
-  //     isEmpty(maritalStatus) ||
-  //     isEmpty(membershipFee) ||
-  //     isEmpty(membershipType)
-  //   ) {
-  //     errors.push(
-  //       'please provide martial status, membership fee and membership '
-  //     );
-  //   }
-  //   const allProvided = [
-  //     'spousefirstname',
-  //     'spouselastname',
-  //     'spousemiddlename',
-  //   ].every((key) => !isEmpty(spouse[key]));
-
-  //   console.log(allProvided);
-
-  //   if (spousefirstname !== undefined && !allProvided) {
-  //     errors.push('Provide Spouse firstname , middlename and lastname');
-  //   }
-
-  //   if (errors.length > 0) {
-  //     return {
-  //       errors,
-  //       enteredValues: {
-  //         memberId,
-  //         firstName,
-  //         middleName,
-  //         lastName,
-  //         email,
-  //         phone,
-  //         city,
-  //         province,
-  //         address,
-  //         maritalStatus,
-  //         postalCode,
-  //         startDate,
-  //         membershipFee,
-  //         membershipType,
-  //         spousefirstname,
-  //         spousemiddlename,
-  //         spouselastname,
-  //       },
-  //     };
-
-  //   }
-
-  //   axios
-  //     .post(`${urlremote}/api/members`, churMem)
-  //     .then(() => console.log('success'))
-  //     .catch((err) => console.log(err));
-
-  //   return { errors: null };
-  // };
-  // const [formState, formAction] = useActionState(registerAction, {
-  //   errors: null,
-  // });
-
-  // useEffect(() => {
-  //   const ev = formState.enteredValues;
-  //   console.log(ev);
-  //   if (ev) {
-  //     console.log(`st => ${ev.maritalStatus}`);
-
-  //     setMaritalStatus(ev.maritalStatus ?? '');
-
-  //     setMemberShipType(ev.membershipType ?? '');
-
-  //     setMemberShipFee(ev.membershipFee ?? '');
-  //   }
-  // }, [formState.enteredValues]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -372,7 +239,7 @@ const Registration = () => {
 
     //create a member in the database
     axios
-      .post(`${urlremote}/api/members`, churMem)
+      .post(`${import.meta.env.VITE_API_URL}/api/members`, churMem)
       .then(() => {
         console.log('success');
         setEnteredValues({

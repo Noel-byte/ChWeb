@@ -16,12 +16,12 @@ import AdminRegister from './pages/AdminRegister';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 
-
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
   const [admintoken, setAdminToken] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [content, setContent] = useState('');
   const [userInfo, setUserInfo] = useState({
     memberid: '',
     firstname: '',
@@ -107,9 +107,10 @@ function App() {
         setIsAdmin,
         isAdminOpen,
         setIsAdminOpen,
+        content,
+        setContent,
       }}
     >
-      
       <RouterProvider router={router} />
     </MyContext>
   );

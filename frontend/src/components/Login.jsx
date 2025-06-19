@@ -5,8 +5,7 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import MyContext from './MyContext';
 import { useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
+
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -19,7 +18,7 @@ const Login = () => {
     //load member details
     if (!token) return;
     axios
-      .get(`${urlremote}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +48,7 @@ const Login = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     const idToken = credentialResponse.credential;
 
-    const res = await fetch(`${urlremote}/api/auth/google-token`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google-token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idToken }),

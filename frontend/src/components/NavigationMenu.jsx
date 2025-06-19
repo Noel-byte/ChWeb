@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 import MyContext from './MyContext';
 import axios from 'axios';
 import { LanguageContext } from './LanguageContext';
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
+
 
 const NavigationMenu = () => {
   const { token, isAdmin, setToken, setIsAdmin, isAdminOpen, setIsAdminOpen } =
@@ -67,7 +66,7 @@ const NavigationMenu = () => {
     //load member details
     if (!token) return;
     axios
-      .get(`${urlremote}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -281,7 +280,7 @@ const NavigationMenu = () => {
         <div className="inline-flex rounded-lg overflow-hidden border border-gray-300 shadow-sm">
             <button
               onClick={() => changeLang('en')}
-              className={`px-4 py-2 text-sm font-medium ${
+              className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
                 language === 'en'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -291,7 +290,7 @@ const NavigationMenu = () => {
             </button>
             <button
               onClick={() => changeLang('tg')}
-              className={`px-4 py-2 text-sm font-medium ${
+              className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
                 language === 'tg'
                   ? 'bg-blue-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-gray-100'

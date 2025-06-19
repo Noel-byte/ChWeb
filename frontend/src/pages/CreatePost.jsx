@@ -1,32 +1,33 @@
 import React from 'react';
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import MyContext from '../components/MyContext';
 import BlogEditor from '../components/BlogEditor';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 // import { useTranslation } from 'react-i18next';
 import '../i18n';
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
 
 const CreatePost = () => {
-  const [content, setContent] = useState('');
-  const { setIsAdminOpen } = useContext(MyContext);
-const { t} = useTranslation();
+  const { setIsAdminOpen, content, setContent } = useContext(MyContext);
+  const { t } = useTranslation();
   //  const { t, i18n } = useTranslation();
 
+
   const handleChange = useCallback((newValue) => {
-    console.log(newValue);
+    // console.log(newValue);
     setContent(newValue);
   }, []);
 
-  const createPost = (e) => {
-    e.preventDefault();
+  const createPost = () => {
+    // e.preventDefault();
 
     //make a post request
     axios
-      .post(`${urlremote}/api/admin/post`, { content })
-      .then((response) => {console.log(response.data);setContent('')})
+      .post(`${import.meta.env.VITE_API_URL}/api/admin/post`, { content })
+      .then((response) => {
+        console.log(response.data);
+        setContent('');
+      })
       .catch((error) => console.log(error));
   };
 

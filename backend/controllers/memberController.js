@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import Stripe from 'stripe';
 // const YOUR_DOMAIN = 'http://localhost:5173';
-const YOUR_DOMAIN = process.env.CLIENT_URL;
+// const YOUR_DOMAIN = process.env.CLIENT_URL;
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const createMember = async (req, res) => {
   // console.log('Incoming form data: ',req.body)
@@ -128,8 +128,8 @@ const processPayment = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${YOUR_DOMAIN}/payment-success`,
-      cancel_url: `${YOUR_DOMAIN}/payment-canceled`,
+      success_url: `${process.env.CLIENT_URL}/payment-success`,
+      cancel_url: `${process.env.CLIENT_URL}/payment-canceled`,
     });
 
     //save the payment to the database
@@ -176,8 +176,8 @@ const processDonation = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${YOUR_DOMAIN}/donation-success`,
-      cancel_url: `${YOUR_DOMAIN}/donation-canceled`,
+      success_url: `${process.env.CLIENT_URL}/donation-success`,
+      cancel_url: `${process.env.CLIENT_URL}/donation-canceled`,
     });
 
     //save donation to the database

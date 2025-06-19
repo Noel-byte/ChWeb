@@ -3,8 +3,7 @@ import { useState,useContext } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../components/MyContext';
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
+
 
 
 const AdminRegister = () => {
@@ -29,7 +28,7 @@ const AdminRegister = () => {
     const user ={username:uname,password:upass}
 
     //send the  values to the database
-     axios.post(`${urlremote}/api/admin/login`,user)
+     axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`,user)
      .then((response)=>{
       localStorage.setItem('admintoken',response.data.token)
       setAdminToken(localStorage.getItem('admintoken'))

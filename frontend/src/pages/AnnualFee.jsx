@@ -4,8 +4,7 @@ import MyContext from '../components/MyContext';
 import Input from '../components/Input';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-// const urllocal = `http://localhost:5000`;
-const urlremote = `https://faithbridge.onrender.com`;
+
 const AnnualFee = () => {
   const { feeAmount, userInfo, setUserInfo, setFeeAmount,token } = useContext(MyContext);
   const{t}= useTranslation()
@@ -17,7 +16,7 @@ const AnnualFee = () => {
     //load member details
     if(!token) return;
     axios
-      .get(`${urlremote}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,7 +41,7 @@ const AnnualFee = () => {
 
     const data ={amount}
     //validate the member id
-    axios.post(`${urlremote}/api/members/create-checkout-session-annualfee`,data, {
+    axios.post(`${import.meta.env.VITE_API_URL}/api/members/create-checkout-session-annualfee`,data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
