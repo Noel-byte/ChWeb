@@ -72,33 +72,13 @@ const getPost = async (req, res) => {
 };
 
 const getMember = async (req, res) => {
- 
-  if(req.user.donation){
-   return  res.status(200).json({donation:req.user.donation})
-  }
-  else if(req.user.notmember){
-    return res.status(200).json({notmember:req.user.notmember})
-  }
-  else{
- const id = req.user.id; //from url params
-  const { isAdmin } = req.user;
-  console.log(isAdmin);
+  if (req.user.notmember) {
+    return res.status(200).json({ notmember: true });
+  } else {
+    const { isAdmin, member } = req.user;
 
-  try {
-    const member = await Member.findById(id);
-
-    if (!member) {
-      return res.status(404).json({ message: 'Member not found' });
-    }
-    //then get user by using memberid
-    console.log('member found with googleid:', member.googleId);
     res.status(200).json({ member, isAdmin });
-  } catch (error) {
-    console.log('error fetching member: ', error);
-    res.status(500).json({ message: 'Server error' });
   }
-  }
- 
 };
 
 const processPayment = async (req, res) => {

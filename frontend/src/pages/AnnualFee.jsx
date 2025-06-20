@@ -23,7 +23,6 @@ const AnnualFee = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.notmember)
         if (res.data.notmember) {
           setIsMember(false);
         } else {
@@ -32,8 +31,11 @@ const AnnualFee = () => {
           if (res.data.member.membershiptype === 'Family') {
             setFeeAmount(120);
           }
-          if (res.data.member.membershiptype === 'Single') {
+         else if (res.data.member.membershiptype === 'Single') {
             setFeeAmount(80);
+          }
+          else{
+            setFeeAmount(0)
           }
         }
       })
