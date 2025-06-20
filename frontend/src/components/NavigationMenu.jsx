@@ -208,6 +208,7 @@ const NavigationMenu = () => {
                   <Link
                     to={token ? 'annualfee' : 'authenticate'}
                     className="hover:text-stone-400 block py-1"
+                    onClick={()=>{if(!token)localStorage.setItem('redirectTo','annualfee')}}
                   >
                     {t('membersfee')}
                   </Link>
@@ -221,6 +222,7 @@ const NavigationMenu = () => {
             <Link
               to={token ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
+              onClick={()=>{if(!token)localStorage.setItem('redirectTo','donate')}}
             >
               {t('donate')}
             </Link>
@@ -481,6 +483,7 @@ const NavigationMenu = () => {
                     <Link
                       to={token ? 'annualfee' : 'authenticate'}
                       className="block py-1 hover:text-stone-400"
+                       onClick={()=>{if(!token)localStorage.setItem('redirectTo','annualfee')}}
                     >
                       {t('membersfee')}
                     </Link>
@@ -493,6 +496,7 @@ const NavigationMenu = () => {
               <Link
                 to={token ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
+                onClick={()=>{if(!token)localStorage.setItem('redirectTo','donate')}}
               >
                 {t('donate')}
               </Link>

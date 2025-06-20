@@ -47,27 +47,40 @@ export const protect = async (req, res, next) => {
       //verify the token
       const verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-      //from verified token we can get the member id
-      const member = await Member.findById(verifiedToken.id);
-      if (!member) return res.status(404).json({ message: 'Member not found' });
+      if (verifiedToken.donation) {
+        req.user = verifiedToken;
+        next();
+      } 
+      else if(verifiedToken.notmember){
+        req.user = verifiedToken
+        next()
+      }
+      
+      else {
+        //from verified token we can get the member id
+        const member = await Member.findById(verifiedToken.id);
+        if (!member)
+          return res.status(404).json({ message: 'Member not found' });
 
-      //attach the memeber to the request body
-      req.user = member;
-      req.user.googleid=verifiedToken.googleid
-       //from verfied token get the email address
-      const userEmail = verifiedToken.email;
-    // req.user.isAdmin =  userEmail === 'tskeren90@gmail.com';
-      req.user.isAdmin = ['tskeren90@gmail.com','horizon33noela@gmail.com'].includes(userEmail)
+        //attach the memeber to the request body
+        req.user = member;
+        req.user.googleid = verifiedToken.googleid;
+        //from verfied token get the email address
+        const userEmail = verifiedToken.email;
+        // req.user.isAdmin =  userEmail === 'tskeren90@gmail.com';
+        req.user.isAdmin = [
+          'tskeren90@gmail.com',
+          'horizon33noela@gmail.com',
+        ].includes(userEmail);
 
-  //  || userEmail === 'horizon33noela@gmail.com';
+        //  || userEmail === 'horizon33noela@gmail.com';
 
-      next(); //advance to the next middlewar
+        next(); //advance to the next middlewar
+      }
     } catch (error) {
-      res.status(401).json({ message: 'Authentication failed' });
+      res.status(401).json({ message: error.message });
     }
   } else {
     res.status(401).json({ message: 'Not Authorized' });
   }
 };
-
-

@@ -72,8 +72,15 @@ const getPost = async (req, res) => {
 };
 
 const getMember = async (req, res) => {
-  //get the id from the request body
-  const id = req.user.id; //from url params
+ 
+  if(req.user.donation){
+   return  res.status(200).json({donation:req.user.donation})
+  }
+  else if(req.user.notmember){
+    return res.status(200).json({notmember:req.user.notmember})
+  }
+  else{
+ const id = req.user.id; //from url params
   const { isAdmin } = req.user;
   console.log(isAdmin);
 
@@ -90,6 +97,8 @@ const getMember = async (req, res) => {
     console.log('error fetching member: ', error);
     res.status(500).json({ message: 'Server error' });
   }
+  }
+ 
 };
 
 const processPayment = async (req, res) => {

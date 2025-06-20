@@ -6,7 +6,6 @@ import MyContext from './MyContext';
 import { useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 
-
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const Login = () => {
@@ -40,33 +39,50 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (dialogRef.current) {
+    if (!token && dialogRef.current) {
       dialogRef.current.showModal();
     }
   }, [token]);
 
   const handleLoginSuccess = async (credentialResponse) => {
     const idToken = credentialResponse.credential;
-
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google-token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ idToken }),
-    });
-    const data = await res.json();
-    // console.log(data.token); // JWT token from backend
-    localStorage.setItem('token', data.token);
-    setToken(data.token);
-
     // redirect after login
     const destination = localStorage.getItem('redirectTo');
+    console.log(destination);
+    localStorage.removeItem('redirectTo');
 
-    if (destination === 'annualfee') {
-      navigate('/annualfee');
-    } else if (destination === 'donate') {
+    if (destination === 'donate') {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/donate/google-token`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        }
+      );
+      const data = await res.json();
+      // console.log(data.token); // JWT token from backend
+      localStorage.setItem('token', data.token);
+      setToken(data.token);
       navigate('/donate');
     } else {
-      navigate('/');
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/google-token`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken }),
+        }
+      );
+      const data = await res.json();
+      // console.log(data.token); // JWT token from backend
+      localStorage.setItem('token', data.token);
+      setToken(data.token);
+      if (destination === 'annualfee' ) {
+        navigate('/annualfee');
+      } else {
+        navigate('/');
+      }
     }
   };
 
@@ -81,6 +97,7 @@ const Login = () => {
     navigate('/');
   };
   return (
+    !token&&
     <>
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4">
         <dialog

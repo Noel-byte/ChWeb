@@ -57,7 +57,7 @@ const Footer = () => {
     {/* Copyright */}
     <div className="mt-4 pt-3 border-t border-gray-700">
       <p className="text-center text-gray-400 text-xs">
-        © {new Date().getFullYear()} ቅዱስ ቁርባን ካቶኪካዊት ቤተክርስትያን. All rights reserved.
+        © {new Date().getFullYear()} Assumption of Mary Geez Rite Eritrean Catholic Church of Edmonton. All rights reserved.
       </p>
     </div>
   </div>
