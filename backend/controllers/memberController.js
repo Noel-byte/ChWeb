@@ -83,20 +83,12 @@ const getMember = async (req, res) => {
 
 const processPayment = async (req, res) => {
   const { amount } = req.body;
-  const id = req.user.id;
-  console.log('googleid: ', req.user.googleid);
+  const id = req.user.member._id;
 
   try {
-    const user = await Member.findById(id);
-    console.log(user);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
     //create stripe customer
     const customer = await stripe.customers.create({
-      email: user.email,
+      email: req.user.member.email,
     });
 
     //create checkout session
