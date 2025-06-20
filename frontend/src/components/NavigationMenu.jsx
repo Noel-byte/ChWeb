@@ -8,52 +8,46 @@ import MyContext from './MyContext';
 import axios from 'axios';
 import { LanguageContext } from './LanguageContext';
 
-
 const NavigationMenu = () => {
   const { token, isAdmin, setToken, setIsAdmin, isAdminOpen, setIsAdminOpen } =
     useContext(MyContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const [isSpirtualopen, setIsSpirtualOpen] = useState(false);
-  const [isLifeEventsopen, setIsLifeEventsOpen] = useState(false);
+  // const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  // const [isSpirtualopen, setIsSpirtualOpen] = useState(false);
+  // const [isLifeEventsopen, setIsLifeEventsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const {language,changeLang} = useContext(LanguageContext)
+  const { language, changeLang } = useContext(LanguageContext);
 
-  const { t} = useTranslation();
-
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
- 
-
   const toggleAdminDropdown = () => {
     setIsAdminOpen((prev) => !prev);
-    setIsServicesDropdownOpen(false);
+    // setIsServicesDropdownOpen(false);
     setIsDropdownOpen(false);
   };
-  const toggleSpirtualServices = () => {
-    setIsSpirtualOpen((prev) => !prev);
-    setIsLifeEventsOpen(false);
-  };
-  const toggleLifeEvents = () => {
-    setIsLifeEventsOpen((prev) => !prev);
-    setIsSpirtualOpen(false);
-  };
+  // const toggleSpirtualServices = () => {
+  //   setIsSpirtualOpen((prev) => !prev);
+  //   setIsLifeEventsOpen(false);
+  // };
+  // const toggleLifeEvents = () => {
+  //   setIsLifeEventsOpen((prev) => !prev);
+  //   setIsSpirtualOpen(false);
+  // };
 
-  const toggleServicesDropdown = () => {
-    setIsServicesDropdownOpen((prev) => !prev);
-    setIsDropdownOpen(false);
-    setIsAdminOpen(false);
-  };
+  // const toggleServicesDropdown = () => {
+  //   setIsServicesDropdownOpen((prev) => !prev);
+  //   setIsDropdownOpen(false);
+  //   setIsAdminOpen(false);
+  // };
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
 
-    setIsServicesDropdownOpen(false);
+    // setIsServicesDropdownOpen(false);
     setIsAdminOpen(false);
   };
-
-
 
   useEffect(() => {
     //load member details
@@ -78,8 +72,6 @@ const NavigationMenu = () => {
     setIsAdmin(false);
     navigate('/');
   };
-
-
 
   return (
     <nav className="fixed top-0 left-0 z-20 w-screen text-white px-4 lg:px-10 py-4 font-button bg-nav backdrop-blur-md flex flex-wrap justify-between items-center">
@@ -112,7 +104,7 @@ const NavigationMenu = () => {
                       to="register"
                       className="hover:text-stone-400 block py-1"
                     >
-                     {t('registration')}
+                      {t('registration')}
                     </Link>
                   </li>
                   <li>
@@ -126,7 +118,7 @@ const NavigationMenu = () => {
           )}
 
           {/* Services Dropdown */}
-          <li className="relative">
+          {/* <li className="relative">
             <button
               onClick={toggleServicesDropdown}
               className="cursor-pointer hover:text-stone-400 transition-colors duration-200"
@@ -192,7 +184,7 @@ const NavigationMenu = () => {
                 </li>
               </ul>
             )}
-          </li>
+          </li> */}
 
           {/* Members Dropdown */}
           <li className="relative">
@@ -208,7 +200,10 @@ const NavigationMenu = () => {
                   <Link
                     to={token ? 'annualfee' : 'authenticate'}
                     className="hover:text-stone-400 block py-1"
-                    onClick={()=>{if(!token)localStorage.setItem('redirectTo','annualfee')}}
+                    onClick={() => {
+                      if (!token)
+                        localStorage.setItem('redirectTo', 'annualfee');
+                    }}
                   >
                     {t('membersfee')}
                   </Link>
@@ -222,12 +217,13 @@ const NavigationMenu = () => {
             <Link
               to={token ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
-              onClick={()=>{if(!token)localStorage.setItem('redirectTo','donate')}}
+              onClick={() => {
+                if (!token) localStorage.setItem('redirectTo', 'donate');
+              }}
             >
               {t('donate')}
             </Link>
           </li>
-        
         </ul>
       </div>
 
@@ -268,29 +264,29 @@ const NavigationMenu = () => {
           )}
         </button>
       </div>
-{/* language toggle section */}
-        <div className="inline-flex rounded-lg overflow-hidden border border-gray-300 shadow-sm">
-            <button
-              onClick={() => changeLang('en')}
-              className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
-                language === 'en'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              English
-            </button>
-            <button
-              onClick={() => changeLang('tg')}
-              className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
-                language === 'tg'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              ትግርኛ
-            </button>
-          </div>
+      {/* language toggle section */}
+      <div className="inline-flex rounded-lg overflow-hidden border border-gray-300 shadow-sm">
+        <button
+          onClick={() => changeLang('en')}
+          className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
+            language === 'en'
+              ? 'bg-blue-600 text-white'
+              : 'bg-white text-gray-700 hover:bg-gray-100'
+          }`}
+        >
+          English
+        </button>
+        <button
+          onClick={() => changeLang('tg')}
+          className={`px-4 py-2 text-sm font-medium hover:cursor-pointer ${
+            language === 'tg'
+              ? 'bg-blue-600 text-white'
+              : 'bg-white text-gray-700 hover:bg-gray-100'
+          }`}
+        >
+          ትግርኛ
+        </button>
+      </div>
 
       {/* Auth Section */}
       <div className="flex items-center">
@@ -382,7 +378,7 @@ const NavigationMenu = () => {
               </li>
             )}
 
-            <li>
+            {/* <li>
               <button
                 onClick={toggleServicesDropdown}
                 className="w-full text-left py-2 hover:text-stone-400 flex justify-between items-center"
@@ -468,7 +464,7 @@ const NavigationMenu = () => {
                   </li>
                 </ul>
               )}
-            </li>
+            </li> */}
 
             <li>
               <button
@@ -483,7 +479,10 @@ const NavigationMenu = () => {
                     <Link
                       to={token ? 'annualfee' : 'authenticate'}
                       className="block py-1 hover:text-stone-400"
-                       onClick={()=>{if(!token)localStorage.setItem('redirectTo','annualfee')}}
+                      onClick={() => {
+                        if (!token)
+                          localStorage.setItem('redirectTo', 'annualfee');
+                      }}
                     >
                       {t('membersfee')}
                     </Link>
@@ -496,7 +495,9 @@ const NavigationMenu = () => {
               <Link
                 to={token ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
-                onClick={()=>{if(!token)localStorage.setItem('redirectTo','donate')}}
+                onClick={() => {
+                  if (!token) localStorage.setItem('redirectTo', 'donate');
+                }}
               >
                 {t('donate')}
               </Link>
