@@ -48,7 +48,7 @@ export const protect = async (req, res, next) => {
       const verifiedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
       if (verifiedToken.notmember) {
-        req.user = { notmember: verifiedToken.notmember };
+        req.user = { notmember: verifiedToken.notmember,email:verifiedToken.email };
         next();
       } else {
         //from verified token we can get the member id
@@ -68,6 +68,7 @@ export const protect = async (req, res, next) => {
           isAdmin,
           notmember: false,
           googleid,
+          email:member.email
         };
 
         next(); //advance to the next middlewar
