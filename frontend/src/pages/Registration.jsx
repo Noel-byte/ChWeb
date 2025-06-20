@@ -5,10 +5,7 @@ import TextArea from '../components/TextArea';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
-import FileUpload from '../components/FileUpload';
-
-
-
+// import FileUpload from '../components/FileUpload';
 
 const Registration = () => {
   const { setIsAdminOpen } = useContext(MyContext);
@@ -54,7 +51,6 @@ const Registration = () => {
     spouseLastName: true,
     spouseMiddleName: true,
   });
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -457,7 +453,7 @@ const Registration = () => {
                 )}
               </fieldset>
             </div>
-            <FileUpload />
+            {/* <FileUpload /> */}
           </div>
           <button
             className=" justify-start border rounded-lg px-6 py-2 w-1/2 m-auto block bg-white text-dark text-lg hover:cursor-pointer hover:bg-dark hover:text-white mt-4"

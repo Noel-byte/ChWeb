@@ -5,10 +5,9 @@ import axios from 'axios';
 import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
 
-
 const Donate = () => {
-  const [amount, setAmount] = useState(0);
-  const {t} = useTranslation()
+  const [amount, setAmount] = useState(1);
+  const { t } = useTranslation();
   const [errorMessage, setErrorMessage] = useState({
     amterr: undefined,
   });
@@ -36,7 +35,9 @@ const Donate = () => {
 
     axios
       .post(
-        `${import.meta.env.VITE_API_URL}/api/members/create-checkout-session-donation`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/members/create-checkout-session-donation`,
         { amount },
         {
           headers: {
@@ -87,22 +88,49 @@ const Donate = () => {
               <label htmlFor="amount" className="text-xl font-text ">
                 {t('amount')}
               </label>
-   
-              <div  className='relative'>
+
+              <div className="relative">
                 <input
                   type="text"
                   name="amount"
                   id="amount"
-                  min={0}
-                  onChange={(e) => setAmount(e.target.value)}
+                  min={1}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === '') {
+                      setAmount('');
+
+                      return;
+                    }
+                    //check is a valid number and non-negative
+                    const num = Number(val);
+
+                    if (Number.isNaN(num) || num <= 0) {
+                      // invalid input
+                      setErrorMessage((prev) => ({
+                        ...prev,
+                        amterr: 'please enter a valid value',
+                      }));
+                      return;
+                    }
+                    // valid number
+                    setErrorMessage((prev) => ({
+                      ...prev,
+                      amterr: '',
+                    }));
+
+                    setAmount(e.target.value);
+                  }}
                   value={amount}
                   className=" w-full py-3 px-4 border border-gray-300 rounded-lg text-lg font-semibold"
                 />
-                <span className="absolute right-3 top-3.5 text-gray-500 font-medium">CAD</span>
+                <span className="absolute right-3 top-3.5 text-gray-500 font-medium">
+                  CAD
+                </span>
               </div>
             </div>
             {errorMessage.amterr && (
-              <p className="text-center text-red-500">Please enter amount.</p>
+              <p className="text-center text-red-500">{errorMessage.amterr}</p>
             )}
           </div>
 
