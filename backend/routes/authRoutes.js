@@ -23,8 +23,6 @@ router.post('/google-token', async (req, res) => {
     const payload = ticket.getPayload();
     const email = payload.email;
 
-    
-
     // Find church member by email
     const member = await Member.findOne({ email });
     if (!member) {
@@ -61,8 +59,8 @@ router.post('/google-token', async (req, res) => {
     //set is as HttpOnly cookie
     res.cookie('token', token, {
       httpOnly: true,
-      //  secure:true, // use true in production with HTTPS
-      secure: process.env.NODE_ENV === 'production',
+      secure: true, // use true in production with HTTPS
+      // secure: process.env.NODE_ENV === 'production',
       sameSite: 'Strict',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
@@ -82,7 +80,7 @@ router.post('/logout', (req, res) => {
     sameSite: 'Strict',
   });
 
-  res.json({message:'Logged out'})
+  res.json({ message: 'Logged out' });
 });
 
 export default router;
