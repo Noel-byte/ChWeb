@@ -11,6 +11,7 @@ import Stripe from 'stripe';
 import Member from './models/Members.js';
 import adminRoutes from './routes/adminRoutes.js';
 import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/authRoutes.js';
 import './config/passport.js'; //triggers strategy registration
@@ -20,14 +21,19 @@ console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-const allowedOrigins = ['http://localhost:5173', 'https://faithbridge.netlify.app'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://faithbridge.netlify.app',
+];
 
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true, 
-}));
-app.use(express.json());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+app.use(express.json()); //parse json body
+app.use(cookieParser()); //parse cookies
 
 app.use(passport.initialize());
 
@@ -35,8 +41,6 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/members', memberRoute);
 app.use('/api/admin', adminRoutes);
-
-
 
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;

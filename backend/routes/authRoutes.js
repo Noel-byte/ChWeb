@@ -7,6 +7,7 @@ const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post('/google-token', async (req, res) => {
+  let token;
   const { idToken } = req.body;
   if (!idToken) {
     return res.status(400).json({ error: 'ID token is required' });
@@ -22,12 +23,12 @@ router.post('/google-token', async (req, res) => {
     const payload = ticket.getPayload();
     const email = payload.email;
 
-    console.log('payload: ', payload);
+    
 
     // Find church member by email
     const member = await Member.findOne({ email });
     if (!member) {
-      const token = jwt.sign(
+      token = jwt.sign(
         {
           id: payload.jti,
           email: payload.email,
@@ -40,7 +41,6 @@ router.post('/google-token', async (req, res) => {
           expiresIn: '1h',
         }
       );
-      return res.json({ token });
     } else {
       // Optional: save googleId for member if you want
       if (!member.googleId) {
@@ -49,20 +49,40 @@ router.post('/google-token', async (req, res) => {
       }
 
       // Create your own JWT token for your app
-      const token = jwt.sign(
+      token = jwt.sign(
         { id: member._id, email: member.email, googleid: payload.sub },
         process.env.JWT_SECRET_KEY,
         {
           expiresIn: '1h',
         }
       );
-
-      res.json({ token });
     }
+
+    //set is as HttpOnly cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      //  secure:true, // use true in production with HTTPS
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 60 * 60 * 1000, // 1 hour
+    });
+    //Respond with success message
+    res.json({ message: 'Login successful' });
   } catch (error) {
     console.error('Google token verification error:', error);
     res.status(401).json({ error: 'Invalid ID token' });
   }
+});
+
+// logout route
+router.post('/logout', (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'Strict',
+  });
+
+  res.json({message:'Logged out'})
 });
 
 export default router;

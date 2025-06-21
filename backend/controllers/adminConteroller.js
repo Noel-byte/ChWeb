@@ -1,20 +1,13 @@
-
 import Post from '../models/Posts.js';
-import jwt from 'jsonwebtoken';
-
-
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-};
 
 const createPost = async (req, res) => {
   try {
-    console.log('Body: ',req.body)
+    console.log('Body: ', req.body);
     const { content } = req.body;
 
-    if(!content||content.trim()===''){
-      console.error('content required')
-      return res.status(400).json({message:'Content is required'})
+    if (!content || content.trim() === '') {
+      console.error('content required');
+      return res.status(400).json({ message: 'Content is required' });
     }
     //create a post in the database
     const newPost = new Post({ content });
@@ -34,25 +27,25 @@ const createPost = async (req, res) => {
   }
 };
 
-const deletePost =async (req,res)=>{
-  const {postId} = req.params
-  try{
-    await Post.findByIdAndDelete(postId)
-    res.status(200).json({message:'Post deleted successfully'})
-  }catch(error){
-    res.status(500).json({message:'Error deleting post',error})
+const deletePost = async (req, res) => {
+  const { postId } = req.params;
+  try {
+    await Post.findByIdAndDelete(postId);
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting post', error });
   }
-}
+};
 
-const updatePost = async(req,res)=>{
-  const {postId} = req.params
-  const {content} = req.body
-  try{
-    await Post.findByIdAndUpdate(postId,{content})
-    res.status(200).json({message:'Post updated successfully'})
-  }catch(error){
-    res.status(500).json({message:'Error updating post',error})
+const updatePost = async (req, res) => {
+  const { postId } = req.params;
+  const { content } = req.body;
+  try {
+    await Post.findByIdAndUpdate(postId, { content });
+    res.status(200).json({ message: 'Post updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating post', error });
   }
-}
+};
 
-export { createPost,deletePost,updatePost };
+export { createPost, deletePost, updatePost };

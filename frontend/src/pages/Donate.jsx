@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from '../components/Input';
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
@@ -11,13 +11,7 @@ const Donate = () => {
   const [errorMessage, setErrorMessage] = useState({
     amterr: undefined,
   });
-  const { token, setToken } = useContext(MyContext);
   //first get the token
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
-  }, []);
 
   const handleDonate = async (e) => {
     e.preventDefault();
@@ -40,9 +34,7 @@ const Donate = () => {
         }/api/members/create-checkout-session-donation`,
         { amount },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       )
       .then((res) => {

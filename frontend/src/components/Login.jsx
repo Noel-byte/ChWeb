@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import.meta.env.VITE_GOOGLE_CLIENT_ID;
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import MyContext from './MyContext';
 import { useEffect, useContext, useRef } from 'react';
@@ -10,45 +9,38 @@ const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setToken, token, setUserInfo, setIsAdmin } = useContext(MyContext);
+  const { setUserInfo, setIsAdmin,isLoggedIn, setIsLoggedIn } = useContext(MyContext);
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    //load member details
-    if (!token) return;
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true, //send cookies automatically
       })
       .then((res) => {
         const { member } = res.data;
         setUserInfo(member);
         setIsAdmin(res.data.isAdmin);
-        // console.log(res.data.isAdmin)
+        setIsLoggedIn(true);
       })
-      .catch((error) => console.log('error fetching user', error));
-  }, [token]);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
   }, []);
 
   useEffect(() => {
-    if (!token && dialogRef.current) {
+    if (!isLoggedIn && dialogRef.current) {
       dialogRef.current.showModal();
+    } else if (isLoggedIn && dialogRef.current) {
+      dialogRef.current.close();
     }
-  }, [token]);
+  }, [isLoggedIn]);
 
   const handleLoginSuccess = async (credentialResponse) => {
     const idToken = credentialResponse.credential;
     // redirect after login
     const destination = localStorage.getItem('redirectTo');
-    console.log(destination);
+    // console.log(destination);
     localStorage.removeItem('redirectTo');
 
     const res = await fetch(
@@ -56,13 +48,28 @@ const Login = () => {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ idToken }),
       }
     );
     const data = await res.json();
-    // console.log(data.token); // JWT token from backend
-    localStorage.setItem('token', data.token);
-    setToken(data.token);
+    console.log(data.message); // "Login successful"
+
+    //after login, fetch user info again to update context & state
+    try {
+      const userRes = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/members/user`,
+        {
+          withCredentials: true,
+        }
+      );
+      setUserInfo(userRes.data.member);
+      setIsAdmin(userRes.data.isAdmin);
+      setIsLoggedIn(true);
+    } catch (err) {
+      console.log('Failed to fetch user after login', err);
+    }
+
     if (destination === 'annualfee') {
       navigate('/annualfee');
     } else if (destination === 'donate') {
@@ -83,7 +90,7 @@ const Login = () => {
     navigate('/');
   };
   return (
-    !token && (
+   (
       <>
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center p-4">
           <dialog

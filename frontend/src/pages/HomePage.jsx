@@ -5,12 +5,12 @@ import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import BlogEditor from '../components/BlogEditor';
-import { Toaster,toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [editPostId, setEditPostId] = useState(null);
-  const { token, isAdmin, content, setContent } = useContext(MyContext);
+  const { isLoggedIn, isAdmin, content, setContent } = useContext(MyContext);
   const { t } = useTranslation();
   const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
   const optionsTime = { hour: '2-digit', minute: '2-digit' };
@@ -20,12 +20,12 @@ const HomePage = () => {
   }, []);
 
   const getPosts = () => {
-    toast.loading('Posts loading Please wait...')
+    toast.loading('Posts loading Please wait...');
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/members/getPost`)
       .then((response) => {
-        setPosts(response.data.posts)
-        toast.dismiss()
+        setPosts(response.data.posts);
+        toast.dismiss();
       })
       .catch((error) => console.log(error));
   };
@@ -45,9 +45,7 @@ const HomePage = () => {
       .put(`${import.meta.env.VITE_API_URL}/api/admin/posts/${postId}`, {
         content: content,
       })
-      .then((response) => {
-        console.log(response.data.message);
-
+      .then(() => {
         //set back edit post id to null
         setEditPostId(null);
         //refetch the posts
@@ -62,8 +60,7 @@ const HomePage = () => {
     //make an axios delete request to delete the post
     axios
       .delete(`${import.meta.env.VITE_API_URL}/api/admin/posts/${postId}`)
-      .then((response) => {
-        console.log(response.data.message);
+      .then(() => {
         //  refetch the posts
         getPosts();
       })
@@ -94,7 +91,7 @@ const HomePage = () => {
               {/* Post content */}
               <div className="p-5">
                 <div className="prose prose-sm max-w-none break-words text-gray-800">
-                  {(editPostId !== post._id) ? (
+                  {editPostId !== post._id ? (
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                   ) : (
                     <BlogEditor handleChange={handleChange} value={content} />
@@ -118,7 +115,7 @@ const HomePage = () => {
               </div>
 
               {/* Admin actions */}
-              {token && isAdmin && (
+              {isLoggedIn && isAdmin && (
                 <div className="px-5 pb-5">
                   <div className="flex flex-col sm:flex-row gap-3">
                     {editPostId !== post._id ? (

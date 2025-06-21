@@ -1,7 +1,8 @@
 import React from 'react';
 import { useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Logout from '../pages/Logout'
 
 import { Link } from 'react-router-dom';
 import MyContext from './MyContext';
@@ -9,8 +10,15 @@ import axios from 'axios';
 import { LanguageContext } from './LanguageContext';
 
 const NavigationMenu = () => {
-  const { token, isAdmin, setToken, setIsAdmin, isAdminOpen, setIsAdminOpen } =
-    useContext(MyContext);
+  const {
+    isAdmin,
+    setIsAdmin,
+    isAdminOpen,
+    setIsAdminOpen,
+    setUserInfo,
+    setIsLoggedIn,
+    isLoggedIn,
+  } = useContext(MyContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   // const [isSpirtualopen, setIsSpirtualOpen] = useState(false);
@@ -20,7 +28,7 @@ const NavigationMenu = () => {
 
   const { t } = useTranslation();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const toggleAdminDropdown = () => {
     setIsAdminOpen((prev) => !prev);
@@ -50,28 +58,24 @@ const NavigationMenu = () => {
   };
 
   useEffect(() => {
-    //load member details
-    if (!token) return;
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       })
       .then((res) => {
         setIsAdmin(res.data.isAdmin);
-        console.log(res.data.isAdmin);
+        setUserInfo(res.data.member);
       })
-      .catch((error) => console.log('error fetching user', error));
-  }, [token]);
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
+  }, []);
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    localStorage.removeItem('token');
-    setToken(null);
-    setIsAdmin(false);
-    navigate('/');
-  };
+  // const handleLogout = (e) => {
+  //   e.preventDefault();
+  //   setIsAdmin(false);
+  //   navigate('/');
+  // };
 
   return (
     <nav className="fixed top-0 left-0 z-20 w-screen text-white px-4 lg:px-10 py-4 font-button bg-nav backdrop-blur-md flex flex-wrap justify-between items-center">
@@ -89,7 +93,7 @@ const NavigationMenu = () => {
           </li>
 
           {/* Admin Dropdown */}
-          {token && isAdmin && (
+          {isLoggedIn && isAdmin && (
             <li className="relative">
               <button
                 onClick={toggleAdminDropdown}
@@ -198,10 +202,10 @@ const NavigationMenu = () => {
               <ul className="absolute left-0 w-48 mt-4 bg-nav/95 border border-stone-600 rounded-xl px-4 py-3 space-y-3 z-50 shadow-lg">
                 <li>
                   <Link
-                    to={token ? 'annualfee' : 'authenticate'}
+                    to={isLoggedIn ? 'annualfee' : 'authenticate'}
                     className="hover:text-stone-400 block py-1"
                     onClick={() => {
-                      if (!token)
+                      if (!isLoggedIn)
                         localStorage.setItem('redirectTo', 'annualfee');
                     }}
                   >
@@ -215,10 +219,10 @@ const NavigationMenu = () => {
           {/* Donate Button */}
           <li>
             <Link
-              to={token ? 'donate' : 'authenticate'}
+              to={isLoggedIn ? 'donate' : 'authenticate'}
               className="font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-1.5 text-xl transition-colors duration-200"
               onClick={() => {
-                if (!token) localStorage.setItem('redirectTo', 'donate');
+                if (!isLoggedIn) localStorage.setItem('redirectTo', 'donate');
               }}
             >
               {t('donate')}
@@ -290,7 +294,7 @@ const NavigationMenu = () => {
 
       {/* Auth Section */}
       <div className="flex items-center">
-        {!token ? (
+        {!isLoggedIn ? (
           <Link
             to="authenticate"
             className="hover:text-stone-400 transition-colors duration-200 p-2 rounded-full hover:bg-stone-800 flex items-center"
@@ -313,27 +317,7 @@ const NavigationMenu = () => {
             <span className="sr-only">Login</span>
           </Link>
         ) : (
-          <button
-            onClick={handleLogout}
-            className="hover:text-stone-400 transition-colors duration-200 p-2 rounded-full hover:bg-stone-800 flex items-center"
-            aria-label="Logout"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-              />
-            </svg>
-            <span className="sr-only">Logout</span>
-          </button>
+          <Logout/>
         )}
       </div>
 
@@ -347,7 +331,7 @@ const NavigationMenu = () => {
               </Link>
             </li>
 
-            {token && isAdmin && (
+            {isLoggedIn && isAdmin && (
               <li>
                 <button
                   onClick={toggleAdminDropdown}
@@ -477,10 +461,10 @@ const NavigationMenu = () => {
                 <ul className="pl-4 mt-2 space-y-3">
                   <li>
                     <Link
-                      to={token ? 'annualfee' : 'authenticate'}
+                      to={isLoggedIn ? 'annualfee' : 'authenticate'}
                       className="block py-1 hover:text-stone-400"
                       onClick={() => {
-                        if (!token)
+                        if (!isLoggedIn)
                           localStorage.setItem('redirectTo', 'annualfee');
                       }}
                     >
@@ -493,10 +477,10 @@ const NavigationMenu = () => {
 
             <li>
               <Link
-                to={token ? 'donate' : 'authenticate'}
+                to={isLoggedIn ? 'donate' : 'authenticate'}
                 className="inline-block font-bold border rounded-lg px-6 bg-green-500 hover:bg-green-600 py-2 text-xl mt-2 w-full text-center"
                 onClick={() => {
-                  if (!token) localStorage.setItem('redirectTo', 'donate');
+                  if (!isLoggedIn) localStorage.setItem('redirectTo', 'donate');
                 }}
               >
                 {t('donate')}

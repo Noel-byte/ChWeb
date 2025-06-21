@@ -12,14 +12,12 @@ import AnnualFee from './pages/AnnualFee';
 import { useState } from 'react';
 import MyContext from './components/MyContext';
 import PaymentSuccess from './pages/PaymentSuccess';
-import AdminRegister from './pages/AdminRegister';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
-  const [admintoken, setAdminToken] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [content, setContent] = useState('');
@@ -30,7 +28,7 @@ function App() {
     lastname: '',
     membershiptype: '',
   });
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = createBrowserRouter([
     {
       path: '',
@@ -79,10 +77,6 @@ function App() {
           element: <PaymentSuccess />,
         },
         {
-          path: 'admin',
-          element: <AdminRegister />,
-        },
-        {
           path: 'post',
           element: <CreatePost />,
         },
@@ -100,20 +94,18 @@ function App() {
         setFeeAmount,
         userInfo,
         setUserInfo,
-        token,
-        setToken,
-        admintoken,
-        setAdminToken,
         isAdmin,
         setIsAdmin,
         isAdminOpen,
         setIsAdminOpen,
         content,
         setContent,
+        isLoggedIn,
+        setIsLoggedIn,
       }}
     >
       <RouterProvider router={router} />
-      <Toaster position='top-center' reverseOrder={false}/>
+      <Toaster position="top-center" reverseOrder={false} />
     </MyContext>
   );
 }

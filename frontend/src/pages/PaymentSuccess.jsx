@@ -10,11 +10,7 @@ const PaymentSuccess = () => {
    const [isDialogOpen,setIsDialogOpen] = useState(true)
    const {t} = useTranslation()
  
-   // useEffect(() => {
-   //   if (dialogRef.current) {
-   //     dialogRef.current.showModal();
-   //   }
-   // });
+
  
    const closeDialog = () => {
      setIsDialogOpen(false)

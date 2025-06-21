@@ -266,7 +266,6 @@ const Registration = () => {
       .catch(() => {
         //error message
         toast.error('Something went wrong.')
-        // console.log(err);
       });
   };
 
