@@ -113,7 +113,7 @@ function App() {
       }}
     >
       <RouterProvider router={router} />
-      <Toaster/>
+      <Toaster position='top-center' reverseOrder={false}/>
     </MyContext>
   );
 }
