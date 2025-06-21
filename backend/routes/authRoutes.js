@@ -61,7 +61,7 @@ router.post('/google-token', async (req, res) => {
       httpOnly: true,
       secure: true, // use true in production with HTTPS
       // secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Strict',
+      sameSite: 'None',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
     //Respond with success message
