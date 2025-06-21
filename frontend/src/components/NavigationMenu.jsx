@@ -1,22 +1,18 @@
 import React from 'react';
-import { useEffect, useContext, useState } from 'react';
+import {  useContext, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Logout from '../pages/Logout'
 
 import { Link } from 'react-router-dom';
 import MyContext from './MyContext';
-import axios from 'axios';
 import { LanguageContext } from './LanguageContext';
 
 const NavigationMenu = () => {
   const {
     isAdmin,
-    setIsAdmin,
     isAdminOpen,
     setIsAdminOpen,
-    setUserInfo,
-    setIsLoggedIn,
     isLoggedIn,
   } = useContext(MyContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -57,19 +53,19 @@ const NavigationMenu = () => {
     setIsAdminOpen(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setIsAdmin(res.data.isAdmin);
-        setUserInfo(res.data.member);
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       setIsAdmin(res.data.isAdmin);
+  //       setUserInfo(res.data.member);
+  //     })
+  //     .catch(() => {
+  //       setIsLoggedIn(false);
+  //     });
+  // }, []);
 
   // const handleLogout = (e) => {
   //   e.preventDefault();
