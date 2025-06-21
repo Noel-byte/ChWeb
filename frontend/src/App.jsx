@@ -15,6 +15,7 @@ import PaymentSuccess from './pages/PaymentSuccess';
 import AdminRegister from './pages/AdminRegister';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
@@ -112,6 +113,7 @@ function App() {
       }}
     >
       <RouterProvider router={router} />
+      <Toaster/>
     </MyContext>
   );
 }

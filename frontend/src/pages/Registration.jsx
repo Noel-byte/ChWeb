@@ -2,7 +2,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import Spouse from '../components/Spouse';
 import TextArea from '../components/TextArea';
-import { Toaster, toast } from 'react-hot-toast';
+import {toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
@@ -238,7 +238,6 @@ const Registration = () => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/members`, churMem)
       .then(() => {
-      
         setEnteredValues({
           memberId: '',
           firstName: '',
@@ -256,18 +255,18 @@ const Registration = () => {
           spouseFirstName: '',
           spouseLastName: '',
           spouseMiddleName: '',
-        }
-      );
+        });
 
         //success message
         toast.success('Registration successful!');
-        setTimeout(()=>{
-                toast.dismiss()
-        },3000)
+        setTimeout(() => {
+          toast.dismiss();
+        }, 2000);
       })
-      .catch((err) => {
+      .catch(() => {
         //error message
-        console.log(err);
+        toast.error('Something went wrong.')
+        // console.log(err);
       });
   };
 
