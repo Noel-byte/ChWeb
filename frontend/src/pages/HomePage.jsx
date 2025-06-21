@@ -5,6 +5,7 @@ import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import BlogEditor from '../components/BlogEditor';
+import { Toaster,toast } from 'react-hot-toast';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -19,9 +20,13 @@ const HomePage = () => {
   }, []);
 
   const getPosts = () => {
+    toast.loading('Posts loading Please wait...')
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/members/getPost`)
-      .then((response) => setPosts(response.data.posts))
+      .then((response) => {
+        setPosts(response.data.posts)
+        toast.dismiss()
+      })
       .catch((error) => console.log(error));
   };
 

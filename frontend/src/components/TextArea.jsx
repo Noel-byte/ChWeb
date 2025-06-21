@@ -11,7 +11,7 @@ const TextArea = ({label,name,value,onChange}) => {
                 colos='10'
                 wrap='hard'
                 className="bg-stone-50 outline px-2 rounded"
-                defaultValue={value}
+                value={value}
                 onChange={(event)=>onChange(name,event.target.value)}
               ></textarea>
             </div>

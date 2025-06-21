@@ -2,6 +2,7 @@ import Input from '../components/Input';
 import Select from '../components/Select';
 import Spouse from '../components/Spouse';
 import TextArea from '../components/TextArea';
+import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import MyContext from '../components/MyContext';
@@ -55,7 +56,7 @@ const Registration = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(enteredValues);
+    // console.log(enteredValues);
     const firstNameIsValid = enteredValues.firstName !== '';
     const middleNameIsValid = enteredValues.middleName !== '';
     const lastNameIsValid = enteredValues.lastName !== '';
@@ -237,7 +238,8 @@ const Registration = () => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/members`, churMem)
       .then(() => {
-        console.log('success');
+        //success message
+        toast.success('Registration successful!');
         setEnteredValues({
           memberId: '',
           firstName: '',
@@ -257,7 +259,10 @@ const Registration = () => {
           spouseMiddleName: '',
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        //error message
+        console.log(err);
+      });
   };
 
   const handleChange = (identifier, value) => {
@@ -437,7 +442,7 @@ const Registration = () => {
                     provide valid value.
                   </p>
                 )}
-                {console.log(enteredValues.membershipType)}
+                {/* {console.log(enteredValues.membershipType)} */}
                 {enteredValues.membershipType === 'Family' && (
                   <Spouse
                     sp={{
