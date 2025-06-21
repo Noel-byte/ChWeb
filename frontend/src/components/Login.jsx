@@ -12,21 +12,21 @@ const Login = () => {
   const { setUserInfo, setIsAdmin,isLoggedIn, setIsLoggedIn } = useContext(MyContext);
   const dialogRef = useRef(null);
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
-        withCredentials: true, //send cookies automatically
-      })
-      .then((res) => {
-        const { member } = res.data;
-        setUserInfo(member);
-        setIsAdmin(res.data.isAdmin);
-        setIsLoggedIn(true);
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+  //       withCredentials: true, //send cookies automatically
+  //     })
+  //     .then((res) => {
+  //       const { member } = res.data;
+  //       setUserInfo(member);
+  //       setIsAdmin(res.data.isAdmin);
+  //       setIsLoggedIn(true);
+  //     })
+  //     .catch(() => {
+  //       setIsLoggedIn(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (!isLoggedIn && dialogRef.current) {
