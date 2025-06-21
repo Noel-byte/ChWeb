@@ -238,8 +238,7 @@ const Registration = () => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/members`, churMem)
       .then(() => {
-        //success message
-        toast.success('Registration successful!');
+      
         setEnteredValues({
           memberId: '',
           firstName: '',
@@ -257,7 +256,14 @@ const Registration = () => {
           spouseFirstName: '',
           spouseLastName: '',
           spouseMiddleName: '',
-        });
+        }
+      );
+
+        //success message
+        toast.success('Registration successful!');
+        setTimeout(()=>{
+                toast.dismiss()
+        },3000)
       })
       .catch((err) => {
         //error message
