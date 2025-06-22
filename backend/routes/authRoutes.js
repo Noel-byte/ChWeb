@@ -81,7 +81,7 @@ router.post('/google-token', async (req, res) => {
           googleid: payload.sub,
         },
         process.env.JWT_REFRESH_SECRET,
-        { expiresIn: '7d' } // ✅ long-lived
+        { expiresIn: '30d' } // ✅ long-lived
       );
     }
 
@@ -97,7 +97,7 @@ router.post('/google-token', async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'None',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 
     // 5️⃣ Respond
