@@ -9,14 +9,17 @@ import Success from './pages/Success';
 import DonationCanceled from './pages/DonationCanceled';
 import Login from './components/Login';
 import AnnualFee from './pages/AnnualFee';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import MyContext from './components/MyContext';
 import PaymentSuccess from './pages/PaymentSuccess';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
 function App() {
+
+
   const [feeAmount, setFeeAmount] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -87,6 +90,17 @@ function App() {
       ],
     },
   ]);
+
+    useEffect(() => {
+    // Try to refresh access token on app start
+    axios.get('/api/auth/refresh', { withCredentials: true })
+      .then(() => {
+        console.log('Access token refreshed ✅');
+      })
+      .catch(() => {
+        console.log('No valid refresh token, user must log in.');
+      });
+  }, []);
   return (
     <MyContext
       value={{
