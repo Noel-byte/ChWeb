@@ -9,7 +9,7 @@ import Success from './pages/Success';
 import DonationCanceled from './pages/DonationCanceled';
 import Login from './components/Login';
 import AnnualFee from './pages/AnnualFee';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MyContext from './components/MyContext';
 import PaymentSuccess from './pages/PaymentSuccess';
 import CreatePost from './pages/CreatePost';
@@ -18,8 +18,6 @@ import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 function App() {
-
-
   const [feeAmount, setFeeAmount] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -91,24 +89,27 @@ function App() {
     },
   ]);
 
-useEffect(() => {
-  axios.get('/api/auth/refresh', { withCredentials: true })
-    .then(() => {
-      // ✅ If refresh succeeds, also get user info:
-      return axios.get('/api/members/user', { withCredentials: true });
-    })
-    .then(res => {
-      setUserInfo(res.data.member);
-      setIsLoggedIn(true);
-      console.log('✅ Refreshed & got user');
-    })
-    .catch(() => {
-      // Refresh failed or no user -> force login:
-      setUserInfo(null);
-      setIsLoggedIn(false);
-      console.log('❌ Not logged in');
-    });
-}, []);
+  useEffect(() => {
+    axios
+      .get('/api/auth/refresh', { withCredentials: true })
+      .then(() => {
+        // ✅ If refresh succeeds, also get user info:
+        return axios.get('/api/members/user', { withCredentials: true });
+      })
+      .then((res) => {
+        setUserInfo(res.data.member);
+        setIsLoggedIn(true);
+        setIsAdmin(isAdmin);
+        console.log('✅ Refreshed & got user');
+      })
+      .catch(() => {
+        // Refresh failed or no user -> force login:
+        setUserInfo(null);
+        setIsLoggedIn(false);
+
+        console.log('❌ Not logged in');
+      });
+  }, []);
 
   return (
     <MyContext
