@@ -1,6 +1,6 @@
 import express from 'express';
 import Stripe from 'stripe';
-import Donation from '../models/Donations.js'; // adjust path as needed
+import Donation from '../models/Donations.js'; 
 import bodyParser from 'body-parser';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -33,11 +33,13 @@ router.post(
       // Get your custom metadata
       const email = session.metadata.userEmail;
       const amount = session.amount_total / 100;
+      const googleid = session.metadata.googleid;
 
       console.log(`✅ Payment received from ${email} for $${amount}`);
 
       // Save donation
       const donation = new Donation({
+        googleid,
         email,
         amount,
       });

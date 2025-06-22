@@ -133,13 +133,9 @@ const processDonation = async (req, res) => {
   const { amount } = req.body;
 
   try {
-    const customer = await stripe.customers.create({
-      email: req.user.email,
-    });
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      customer: customer.id,
+      customer_email: req.user.email,
       line_items: [
         {
           price_data: {
@@ -159,10 +155,9 @@ const processDonation = async (req, res) => {
       // 👇 THIS is important:
       metadata: {
         userEmail: req.user.email,
+        googleid: req.user.googleid,
       },
     });
-
- 
 
     res.status(200).json({ url: session.url });
   } catch (error) {
