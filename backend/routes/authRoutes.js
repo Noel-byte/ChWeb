@@ -76,8 +76,9 @@ router.post('/google-token', async (req, res) => {
 router.post('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    secure: true,
+    // secure: process.env.NODE_ENV === 'production',
+    sameSite: 'None',
   });
 
   res.json({ message: 'Logged out' });
