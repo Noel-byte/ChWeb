@@ -1,7 +1,8 @@
 import express from 'express';
 import Stripe from 'stripe';
-import Donation from '../models/Donations.js'; 
+import Donation from '../models/Donations.js';
 import bodyParser from 'body-parser';
+import Payment from '../models/Payments.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -26,32 +27,31 @@ router.post(
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
-    // Handle the event
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-
-      // Get your custom metadata
-      const email = session.metadata.userEmail;
+      const type = session.metadata.type;
       const amount = session.amount_total / 100;
-      const googleid = session.metadata.googleid;
-
-      console.log(`✅ Payment received from ${email} for $${amount}`);
-
-      // Save donation
-      const donation = new Donation({
-        googleid,
-        email,
-        amount,
-      });
-
+      // Handle the event
       try {
-        await donation.save();
-        console.log(`✅ Donation saved to DB`);
-      } catch (err) {
-        console.error('Error saving donation:', err);
+        if (type === 'donation') {
+          const email = session.metadata.userEmail;
+          const newDonation = new Donation({ email, amount });
+          await newDonation.save();
+          console.log('Donation saved:', newDonation);
+        } else if (type === 'payment') {
+          const memberId = session.metadata.memberId;
+          const newPayment = new Payment({
+            member: memberId,
+            amount,
+            status: 'Paid',
+          });
+          await newPayment.save();
+          console.log('Payment saved:', newPayment);
+        }
+      } catch (error) {
+        console.error('Error saving to DB:', error);
       }
     }
-
     res.status(200).json({ received: true });
   }
 );

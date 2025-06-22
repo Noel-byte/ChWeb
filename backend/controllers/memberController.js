@@ -111,16 +111,11 @@ const processPayment = async (req, res) => {
       mode: 'payment',
       success_url: `${process.env.CLIENT_URL}/payment-success`,
       cancel_url: `${process.env.CLIENT_URL}/payment-canceled`,
+      metadata: {
+        type:'payment',
+        memberId: id.toString(),
+      },
     });
-
-    //save the payment to the database
-    const newPayment = new Payment({
-      member: id,
-      amount: parseFloat(amount),
-      status: 'Payed',
-    });
-
-    await newPayment.save(); //save
 
     res.status(200).json({ url: session.url });
   } catch (error) {
@@ -151,9 +146,8 @@ const processDonation = async (req, res) => {
       mode: 'payment',
       success_url: `${process.env.CLIENT_URL}/donation-success`,
       cancel_url: `${process.env.CLIENT_URL}/donation-canceled`,
-
-      // 👇 THIS is important:
       metadata: {
+        type:'donation',
         userEmail: req.user.email,
         googleid: req.user.googleid,
       },

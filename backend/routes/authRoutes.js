@@ -76,8 +76,8 @@ router.post('/google-token', async (req, res) => {
 router.post('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: true,
-    // secure: process.env.NODE_ENV === 'production',
+    // secure: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'None',
   });
 
