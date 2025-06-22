@@ -66,6 +66,7 @@ router.post('/google-token', async (req, res) => {
         {
           id: member._id,
           email: member.email,
+          isAdmin:member.isAdmin,
           googleid: payload.sub,
         },
         process.env.JWT_SECRET_KEY,
@@ -76,6 +77,7 @@ router.post('/google-token', async (req, res) => {
         {
           id: member._id,
           email: member.email,
+          isAdmin:member.isAdmin,
           googleid: payload.sub,
         },
         process.env.JWT_REFRESH_SECRET,
@@ -118,6 +120,7 @@ router.get('/refresh', (req, res) => {
       {
         id: decoded.id,
         email: decoded.email,
+        isAdmin:decoded.isAdmin,
         googleid: decoded.googleid,
       },
       process.env.JWT_SECRET_KEY,
