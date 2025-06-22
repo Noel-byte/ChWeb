@@ -13,6 +13,8 @@ const Logout = () => {
         method: 'POST',
         credentials: 'include',
       });
+
+      console.log('logged out successfully')
     } catch (err) {
       console.log('Logout failed:', err);
     }
