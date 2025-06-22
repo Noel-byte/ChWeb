@@ -59,9 +59,9 @@ router.post('/google-token', async (req, res) => {
     //set is as HttpOnly cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true, // use true in production with HTTPS
-      // secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Lax',
+      // secure: true, // use true in production with HTTPS
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
     //Respond with success message
@@ -78,7 +78,7 @@ router.post('/logout', (req, res) => {
     httpOnly: true,
     secure: true,
     // secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    sameSite: 'None',
   });
 
   res.json({ message: 'Logged out' });

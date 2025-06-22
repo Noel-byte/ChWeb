@@ -23,8 +23,8 @@ const CreatePost = () => {
     //make a post request
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/admin/post`, { content })
-      .then(() => {
-        // console.log(response.data);
+      .then((response) => {
+        console.log(response.data.message);
         setContent('');
       })
       .catch((error) => console.log(error));

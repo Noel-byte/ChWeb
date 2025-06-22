@@ -14,6 +14,9 @@ const createPost = async (req, res) => {
 
     //save the post
     const savePost = await newPost.save();
+    if(!savePost){
+      return res.status(201).json({message:'post not saved'})
+    }
 
     res
       .status(201)
