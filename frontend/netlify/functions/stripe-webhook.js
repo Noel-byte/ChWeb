@@ -5,8 +5,11 @@ import mongoose from 'mongoose';
 // Load .env (optional — Netlify UI also sets these)
 dotenv.config();
 
-import Donation from '../../../backend/models/Donations.js'
+import Donation from '../../../backend/models/Donations.js';
 import Payment from '../../../backend/models/Payments.js'; // ✅ adjust to your structure
+
+
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -29,7 +32,7 @@ export const handler = async (event) => {
     stripeEvent = stripe.webhooks.constructEvent(
       event.body,
       sig,
-      import.meta.env.STRIPE_WEBHOOK_SECRET
+      process.env.STRIPE_WEBHOOK_SECRET
     );
     console.log('✅ Signature verified');
   } catch (err) {
@@ -48,7 +51,9 @@ export const handler = async (event) => {
     const memberId = session.metadata.memberId;
     const amount = session.amount_total / 100;
 
-    console.log(`📌 type=${type}, email=${email}, memberId=${memberId}, amount=${amount}`);
+    console.log(
+      `📌 type=${type}, email=${email}, memberId=${memberId}, amount=${amount}`
+    );
 
     try {
       if (type === 'donation') {
@@ -56,7 +61,11 @@ export const handler = async (event) => {
         await donation.save();
         console.log(`✅ Donation saved`);
       } else if (type === 'payment') {
-        const payment = new Payment({ member: memberId, amount, status: 'Paid' });
+        const payment = new Payment({
+          member: memberId,
+          amount,
+          status: 'Paid',
+        });
         await payment.save();
         console.log(`✅ Payment saved`);
       } else {
