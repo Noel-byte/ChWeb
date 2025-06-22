@@ -1,17 +1,15 @@
 // console.log('Starting server...');
 import dotenv from 'dotenv';
 dotenv.config();
-console.log('Loaded env vars...');
-console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import memberRoute from './routes/memberRoute.js';
 import Stripe from 'stripe';
-import Member from './models/Members.js';
 import adminRoutes from './routes/adminRoutes.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import webhookRoutes from './routes/webhookRoutes.js';
 
 import authRoutes from './routes/authRoutes.js';
 import './config/passport.js'; //triggers strategy registration
@@ -32,8 +30,9 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json()); //parse json body
+app.use('/api/stripe', webhookRoutes);
 app.use(cookieParser()); //parse cookies
+app.use(express.json()); //parse json body
 
 app.use(passport.initialize());
 

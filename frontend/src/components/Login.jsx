@@ -67,6 +67,8 @@ const Login = () => {
       setIsAdmin(userRes.data.isAdmin);
       setIsLoggedIn(true);
     } catch (err) {
+      setIsLoggedIn(false)
+      setUserInfo(null)
       console.log('Failed to fetch user after login', err);
     }
 

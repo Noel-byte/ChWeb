@@ -131,15 +131,11 @@ const processPayment = async (req, res) => {
 
 const processDonation = async (req, res) => {
   const { amount } = req.body;
-  // const {googleid} = req.user.googleid
 
   try {
-    //create stripe customer
     const customer = await stripe.customers.create({
       email: req.user.email,
     });
-
-    //create checkout session
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -151,7 +147,7 @@ const processDonation = async (req, res) => {
             product_data: {
               name: 'Church Donation',
             },
-            unit_amount: amount * 100, // stripe uses cents
+            unit_amount: amount * 100,
           },
           quantity: 1,
         },
@@ -159,16 +155,14 @@ const processDonation = async (req, res) => {
       mode: 'payment',
       success_url: `${process.env.CLIENT_URL}/donation-success`,
       cancel_url: `${process.env.CLIENT_URL}/donation-canceled`,
+
+      // 👇 THIS is important:
+      metadata: {
+        userEmail: req.user.email,
+      },
     });
 
-    //save donation to the database
-    const newDonation = new Donation({
-      // googleid,
-      email: req.user.email,
-      amount: parseFloat(amount),
-    });
-
-    await newDonation.save(); //save donation to the database
+ 
 
     res.status(200).json({ url: session.url });
   } catch (error) {
