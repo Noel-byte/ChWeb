@@ -91,16 +91,25 @@ function App() {
     },
   ]);
 
-    useEffect(() => {
-    // Try to refresh access token on app start
-    axios.get('/api/auth/refresh', { withCredentials: true })
-      .then(() => {
-        console.log('Access token refreshed ✅');
-      })
-      .catch(() => {
-        console.log('No valid refresh token, user must log in.');
-      });
-  }, []);
+useEffect(() => {
+  axios.get('/api/auth/refresh', { withCredentials: true })
+    .then(() => {
+      // ✅ If refresh succeeds, also get user info:
+      return axios.get('/api/members/user', { withCredentials: true });
+    })
+    .then(res => {
+      setUserInfo(res.data.member);
+      setIsLoggedIn(true);
+      console.log('✅ Refreshed & got user');
+    })
+    .catch(() => {
+      // Refresh failed or no user -> force login:
+      setUserInfo(null);
+      setIsLoggedIn(false);
+      console.log('❌ Not logged in');
+    });
+}, []);
+
   return (
     <MyContext
       value={{
