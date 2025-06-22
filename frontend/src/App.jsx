@@ -99,7 +99,7 @@ function App() {
       .then((res) => {
         setUserInfo(res.data.member);
         setIsLoggedIn(true);
-        setIsAdmin(isAdmin);
+        setIsAdmin(res.data.isAdmin);
         console.log('✅ Refreshed & got user');
       })
       .catch(() => {
