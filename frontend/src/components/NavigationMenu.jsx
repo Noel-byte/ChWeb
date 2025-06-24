@@ -65,6 +65,7 @@ const NavigationMenu = () => {
       .then((res) => {
         setIsAdmin(res.data.isAdmin);
         setUserInfo(res.data.member);
+        setIsLoggedIn(true)
       })
       .catch(() => {
         setIsLoggedIn(false);
