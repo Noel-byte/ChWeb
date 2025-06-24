@@ -70,7 +70,7 @@ const NavigationMenu = () => {
       .catch(() => {
         setIsLoggedIn(false);
       });
-  }, []);
+  }, [setUserInfo,setIsLoggedIn,setIsAdmin]);
 
   // const handleLogout = (e) => {
   //   e.preventDefault();
@@ -94,7 +94,7 @@ const NavigationMenu = () => {
           </li>
 
           {/* Admin Dropdown */}
-          {isLoggedIn && isAdmin && (
+          {(isLoggedIn && isAdmin) && (
             <li className="relative">
               <button
                 onClick={toggleAdminDropdown}
