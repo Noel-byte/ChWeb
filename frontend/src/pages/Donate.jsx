@@ -1,16 +1,39 @@
 import React from 'react';
 import Input from '../components/Input';
-import { useState } from 'react';
+import { useState,useContext, useEffect } from 'react';
 import axios from 'axios';
 import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
 
+
+
 const Donate = () => {
   const [amount, setAmount] = useState(1);
+  const {
+    setIsAdmin,
+    setIsLoggedIn,
+    setUserInfo,
+
+  } = useContext(MyContext);
   const { t } = useTranslation();
   const [errorMessage, setErrorMessage] = useState({
     amterr: undefined,
   });
+
+    useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsAdmin(res.data.isAdmin);
+        setUserInfo(res.data.member);
+        setIsLoggedIn(true)
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
+  }, [setUserInfo,setIsLoggedIn,setIsAdmin]);
   //first get the token
 
   const handleDonate = async (e) => {
