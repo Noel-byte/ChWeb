@@ -111,7 +111,7 @@ const processPayment = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${protocol}://${host}/donation-success`,
+     success_url: `${protocol}://${host}/donation-success`,
       cancel_url: `${protocol}://${host}/donation-cancel`,
       metadata: {
         type: 'payment',
