@@ -21,11 +21,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 
 
-// app.use('/api/stripe', webhookRoutes);
+app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
 //   'http://localhost:5173',
 //   'https://faithbridge.netlify.app',
@@ -43,13 +43,13 @@ app.use(express.json()); //parse json body
 
 app.use(passport.initialize());
 
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
-// app.use('/api/members', memberRoute);
-// app.use('/api/admin', adminRoutes);
+app.use('/api/members', memberRoute);
+app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 });
 
 //connect ot MongoDB and start server
