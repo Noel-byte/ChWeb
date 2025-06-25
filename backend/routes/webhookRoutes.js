@@ -14,20 +14,20 @@ router.post(
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     console.log('Stripe webhook called!');
-    // const sig = req.headers['stripe-signature'];
-    // let event;
+    const sig = req.headers['stripe-signature'];
+    let event;
 
-    // try {
-    //   event = stripe.webhooks.constructEvent(
-    //     req.body,
-    //     sig,
-    //     process.env.STRIPE_WEBHOOK_SECRET // set this in your .env
-    //   );
-    //   console.log('Signature verified');
-    // } catch (err) {
-    //   console.log(`Webhook signature error: ${err.message}`);
-    //   return res.status(400).send(`Webhook Error: ${err.message}`);
-    // }
+    try {
+      event = stripe.webhooks.constructEvent(
+        req.body,
+        sig,
+        process.env.STRIPE_WEBHOOK_SECRET // set this in your .env
+      );
+      console.log('Signature verified');
+    } catch (err) {
+      console.log(`Webhook signature error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
     // console.log(`📌 Event type: ${event.type}`);
     // console.log(`📌 Full event: ${JSON.stringify(event, null, 2)}`);
 
