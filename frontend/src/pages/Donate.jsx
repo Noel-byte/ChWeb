@@ -65,7 +65,12 @@ const Donate = () => {
         console.log('Stripe session URL: ',res.data.url)
         window.location.href = res.data.url;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {console.log(error);
+
+        if(error.response){
+          console.error('Error response:',error.response.data)
+        }
+      });
   };
 
   return (
