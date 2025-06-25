@@ -1,19 +1,17 @@
 #!/bin/bash
 
-# Step 1: Build frontend
 echo "📦 Building frontend..."
-cd frontend
+cd frontend || exit 1
 npm install
-npm run build
+npm run build || exit 1
 
-# Step 2: Copy to backend
 echo "📂 Copying dist to backend..."
 rm -rf ../backend/dist
-cp -r dist ../backend/
+cp -r dist ../backend/ || exit 1
 
-# Step 3: Prepare backend
 echo "🛠️ Installing backend dependencies..."
 cd ../backend
 npm install
 
 echo "✅ Ready to deploy! Commit and push your changes now."
+
