@@ -89,14 +89,14 @@ router.post('/google-token', async (req, res) => {
     res.cookie('token', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Strict',
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000, // 15 min
     });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Strict',
+      sameSite: 'None',
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 
@@ -130,7 +130,7 @@ router.get('/refresh', (req, res) => {
     res.cookie('token', newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Strict',
+      sameSite: 'None',
       maxAge: 15 * 60 * 1000,
     });
 
@@ -144,13 +144,13 @@ router.post('/logout', (req, res) => {
     httpOnly: true,
     // secure: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
+    sameSite: 'None',
   });
 
   res.clearCookie('refreshToken', {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
-  sameSite: 'Strict',
+  sameSite: 'None',
 });
 
   res.json({ message: 'Logged out' });

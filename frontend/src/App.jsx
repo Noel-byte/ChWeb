@@ -9,13 +9,13 @@ import Success from './pages/Success';
 import DonationCanceled from './pages/DonationCanceled';
 import Login from './components/Login';
 import AnnualFee from './pages/AnnualFee';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import MyContext from './components/MyContext';
 import PaymentSuccess from './pages/PaymentSuccess';
 import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 import { Toaster } from 'react-hot-toast';
-// import axios from 'axios';
+import axios from 'axios';
 
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
@@ -89,27 +89,27 @@ function App() {
     },
   ]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`, { withCredentials: true })
-  //     .then(() => {
-  //       // ✅ If refresh succeeds, also get user info:
-  //       return axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, { withCredentials: true });
-  //     })
-  //     .then((res) => {
-  //       setUserInfo(res.data.member);
-  //       setIsLoggedIn(true);
-  //       setIsAdmin(res.data.isAdmin);
-  //       console.log('✅ Refreshed & got user');
-  //     })
-  //     .catch(() => {
-  //       // Refresh failed or no user -> force login:
-  //       setUserInfo(null);
-  //       setIsLoggedIn(false);
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`, { withCredentials: true })
+      .then(() => {
+        // ✅ If refresh succeeds, also get user info:
+        return axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, { withCredentials: true });
+      })
+      .then((res) => {
+        setUserInfo(res.data.member);
+        setIsLoggedIn(true);
+        setIsAdmin(res.data.isAdmin);
+        console.log('✅ Refreshed & got user');
+      })
+      .catch(() => {
+        // Refresh failed or no user -> force login:
+        setUserInfo(null);
+        setIsLoggedIn(false);
 
-  //       console.log('❌ Not logged in');
-  //     });
-  // }, []);
+        console.log('❌ Not logged in');
+      });
+  }, []);
 
   return (
     <MyContext
