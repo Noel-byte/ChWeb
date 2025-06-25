@@ -55,12 +55,12 @@ app.get('/health', (req, res) => res.send('OK'));
 
 
 // Add this right before MongoDB connection
-console.log("Registered routes:");
-app._router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log(`${Object.keys(layer.route.methods)} -> ${layer.route.path}`);
-  }
-});
+// console.log("Registered routes:");
+// app._router.stack.forEach((layer) => {
+//   if (layer.route) {
+//     console.log(`${Object.keys(layer.route.methods)} -> ${layer.route.path}`);
+//   }
+// });
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
 
