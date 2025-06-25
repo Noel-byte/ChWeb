@@ -84,6 +84,8 @@ const getMember = async (req, res) => {
 const processPayment = async (req, res) => {
   const { amount } = req.body;
   const id = req.user.member._id;
+   const protocol = req.protocol;
+  const host = req.get('host');
 
   try {
     //create stripe customer
@@ -109,10 +111,10 @@ const processPayment = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.FRONTEND_URL}/payment-success`,
-      cancel_url: `${process.env.FRONTEND_URL}/payment-canceled`,
+      success_url: `${protocol}://${host}/donation-success`,
+      cancel_url: `${protocol}://${host}/donation-cancel`,
       metadata: {
-        type:'payment',
+        type: 'payment',
         memberId: id.toString(),
       },
     });
@@ -126,8 +128,10 @@ const processPayment = async (req, res) => {
 
 const processDonation = async (req, res) => {
   const { amount } = req.body;
+  const protocol = req.protocol;
+  const host = req.get('host');
 
-  console.log('req.user: ',req.user)
+  console.log('req.user: ', req.user);
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -146,10 +150,10 @@ const processDonation = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.FRONTEND_URL}/donation-success`,
-      cancel_url: `${process.env.FRONTEND_URL}/donation-canceled`,
+      success_url: `${protocol}://${host}/donation-success`,
+      cancel_url: `${protocol}://${host}/donation-cancel`,
       metadata: {
-        type:'donation',
+        type: 'donation',
         userEmail: req.user.email,
         googleid: req.user.googleid,
       },
