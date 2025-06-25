@@ -1,6 +1,6 @@
 // console.log('Starting server...');
 import dotenv from 'dotenv';
-// dotenv.config();
+dotenv.config();
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -26,41 +26,35 @@ app.use('/static', express.static(path.join(__dirname, 'dist')));
 // Test route
 app.get('/health', (req, res) => res.send('OK'));
 
-// app.use('/api/stripe', webhookRoutes);
+app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
 //   'http://localhost:5173',
 //   'https://faithbridge.netlify.app',
 // ];
 
-// app.use(
-//   cors({
-//     origin: true,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
-// app.use(cookieParser()); //parse cookies
-// app.use(express.json()); //parse json body
+app.use(cookieParser()); //parse cookies
+app.use(express.json()); //parse json body
 
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
-// app.use('/api/members', memberRoute);
-// app.use('/api/admin', adminRoutes);
+app.use('/api/members', memberRoute);
+app.use('/api/admin', adminRoutes);
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 
-// Add this right before MongoDB connection
-// console.log("Registered routes:");
-// app._router.stack.forEach((layer) => {
-//   if (layer.route) {
-//     console.log(`${Object.keys(layer.route.methods)} -> ${layer.route.path}`);
-//   }
-// });
+
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
 
