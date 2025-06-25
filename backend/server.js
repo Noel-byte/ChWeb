@@ -48,7 +48,7 @@ app.use(passport.initialize());
 // app.use('/api/members', memberRoute);
 // app.use('/api/admin', adminRoutes);
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
