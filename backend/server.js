@@ -2,7 +2,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-import path from 'path'
+import path from 'path';
+import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import memberRoute from './routes/memberRoute.js';
@@ -15,14 +16,20 @@ import webhookRoutes from './routes/webhookRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import './config/passport.js'; //triggers strategy registration
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(express.static(path.join(__dirname,'dist')))
+app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*',(req,res=>{
-  res.sendFile(path.join(__dirname,'dist','index.html'))
-}))
+app.get(
+  '*',
+  (req,
+  (res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  })
+);
 
 app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
