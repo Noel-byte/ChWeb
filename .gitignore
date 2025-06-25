@@ -6,5 +6,7 @@ backend/node_modules/
 # Optional
 .env
 .DS_Store
-dist/
+
+# Ignore frontend dist only
+frontend/dist/
 build/
