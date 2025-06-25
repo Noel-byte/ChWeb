@@ -23,7 +23,9 @@ router.post(
         sig,
         process.env.STRIPE_WEBHOOK_SECRET // set this in your .env
       );
-      console.log('Signature verified');
+      console.log('✅ Signature verified');
+      console.log('📦 Event type:', event.type);
+      console.log('🧾 Session metadata:', event?.data?.object?.metadata);
     } catch (err) {
       console.log(`Webhook signature error: ${err.message}`);
       return res.status(400).send(`Webhook Error: ${err.message}`);
