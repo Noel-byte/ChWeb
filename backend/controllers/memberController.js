@@ -127,6 +127,8 @@ const processPayment = async (req, res) => {
 const processDonation = async (req, res) => {
   const { amount } = req.body;
 
+  console.log('req.user: ',req.user)
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

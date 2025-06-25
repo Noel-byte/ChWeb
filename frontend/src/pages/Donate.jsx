@@ -62,6 +62,7 @@ const Donate = () => {
       )
       .then((res) => {
         //redirect to Stripe checkout
+        console.log('Stripe session URL: ',res.data.url)
         window.location.href = res.data.url;
       })
       .catch((error) => console.log(error));
