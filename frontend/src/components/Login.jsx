@@ -45,7 +45,7 @@ const Login = () => {
     localStorage.removeItem('redirectTo');
 
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/auth/google-token`,
+      `${import.meta.env.VITE_API_BASE_URL}/api/auth/google-token`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,7 @@ const Login = () => {
     //after login, fetch user info again to update context & state
     try {
       const userRes = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/members/user`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/members/user`,
         {
           withCredentials: true,
         }

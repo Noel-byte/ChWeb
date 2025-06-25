@@ -22,7 +22,7 @@ const HomePage = () => {
   const getPosts = () => {
     toast.loading('Posts loading Please wait...');
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/getPost`)
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/getPost`)
       .then((response) => {
         setPosts(response.data.posts);
         toast.dismiss();
@@ -42,7 +42,7 @@ const HomePage = () => {
 
   const handleSave = (postId) => {
     axios
-      .put(`${import.meta.env.VITE_API_URL}/api/admin/posts/${postId}`, {
+      .put(`${import.meta.env.VITE_API_BASE_URL}/api/admin/posts/${postId}`, {
         content: content,
       })
       .then(() => {
@@ -59,7 +59,7 @@ const HomePage = () => {
   const handleDelete = (postId) => {
     //make an axios delete request to delete the post
     axios
-      .delete(`${import.meta.env.VITE_API_URL}/api/admin/posts/${postId}`)
+      .delete(`${import.meta.env.VITE_API_BASE_URL}/api/admin/posts/${postId}`)
       .then(() => {
         //  refetch the posts
         getPosts();

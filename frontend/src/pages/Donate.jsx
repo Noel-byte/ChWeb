@@ -22,7 +22,7 @@ const Donate = () => {
 
     useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -53,7 +53,7 @@ const Donate = () => {
     axios
       .post(
         `${
-          import.meta.env.VITE_API_URL
+          import.meta.env.VITE_API_BASE_URL
         }/api/members/create-checkout-session-donation`,
         { amount },
         {

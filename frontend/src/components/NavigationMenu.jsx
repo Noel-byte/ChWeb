@@ -59,7 +59,7 @@ const NavigationMenu = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, {
         withCredentials: true,
       })
       .then((res) => {

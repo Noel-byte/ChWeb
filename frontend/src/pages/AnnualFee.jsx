@@ -17,7 +17,7 @@ const AnnualFee = () => {
     //load member details
     if (!isLoggedIn) return;
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/members/user`, {
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -48,7 +48,7 @@ const AnnualFee = () => {
     axios
       .post(
         `${
-          import.meta.env.VITE_API_URL
+          import.meta.env.VITE_API_BASE_URL
         }/api/members/create-checkout-session-annualfee`,
         data,
         {

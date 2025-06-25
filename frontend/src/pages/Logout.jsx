@@ -9,7 +9,7 @@ const Logout = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });
