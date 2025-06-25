@@ -23,9 +23,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+
 
 app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
@@ -49,6 +47,10 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/members', memberRoute);
 app.use('/api/admin', adminRoutes);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
