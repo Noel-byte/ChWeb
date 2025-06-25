@@ -1,6 +1,6 @@
 // console.log('Starting server...');
 import dotenv from 'dotenv';
-// dotenv.config();
+dotenv.config();
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -14,7 +14,6 @@ import cookieParser from 'cookie-parser';
 import webhookRoutes from './routes/webhookRoutes.js';
 
 import authRoutes from './routes/authRoutes.js';
-import './config/passport.js'; //triggers strategy registration
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +41,7 @@ app.use(
 app.use(cookieParser()); //parse cookies
 app.use(express.json()); //parse json body
 
+import './config/passport.js'; //triggers strategy registration
 app.use(passport.initialize());
 
 app.use('/api/auth', authRoutes);
@@ -52,8 +52,6 @@ app.use('/api/admin', adminRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-
-
 
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
