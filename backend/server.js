@@ -2,6 +2,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import path from 'path'
 import mongoose from 'mongoose';
 import cors from 'cors';
 import memberRoute from './routes/memberRoute.js';
@@ -16,6 +17,12 @@ import './config/passport.js'; //triggers strategy registration
 
 
 const app = express();
+
+app.use(express.static(path.join(__dirname,'dist')))
+
+app.get('*',(req,res=>{
+  res.sendFile(path.join(__dirname,'dist','index.html'))
+}))
 
 app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
