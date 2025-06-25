@@ -16,6 +16,7 @@ router.post(
     console.log('Stripe webhook called!');
     const sig = req.headers['stripe-signature'];
     let event;
+    console.log('🧾 Stripe signature header:', sig);
 
     try {
       event = stripe.webhooks.constructEvent(
