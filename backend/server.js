@@ -21,7 +21,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/static', express.static(path.join(__dirname, 'dist')));
+
+// Test route
+app.get('/health', (req, res) => res.send('OK'));
 
 // app.use('/api/stripe', webhookRoutes);
 // const allowedOrigins = [
@@ -29,27 +32,35 @@ app.use(express.static(path.join(__dirname, 'dist')));
 //   'https://faithbridge.netlify.app',
 // ];
 
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: true,
+//     credentials: true,
+//   })
+// );
 
-app.use(cookieParser()); //parse cookies
-app.use(express.json()); //parse json body
+// app.use(cookieParser()); //parse cookies
+// app.use(express.json()); //parse json body
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 // app.use('/api/auth', authRoutes);
 
 // app.use('/api/members', memberRoute);
 // app.use('/api/admin', adminRoutes);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
 
+
+// Add this right before MongoDB connection
+console.log("Registered routes:");
+app._router.stack.forEach((layer) => {
+  if (layer.route) {
+    console.log(`${Object.keys(layer.route.methods)} -> ${layer.route.path}`);
+  }
+});
 //connect ot MongoDB and start server
 const PORT = process.env.PORT || 5000;
 
