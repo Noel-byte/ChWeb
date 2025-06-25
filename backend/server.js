@@ -5,7 +5,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import memberRoute from './routes/memberRoute.js';
-import Stripe from 'stripe';
+// import Stripe from 'stripe';
 import adminRoutes from './routes/adminRoutes.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
@@ -16,7 +16,7 @@ import './config/passport.js'; //triggers strategy registration
 
 console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const allowedOrigins = [

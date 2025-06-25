@@ -11,7 +11,7 @@ const router = express.Router();
 // ⚡️ Stripe requires the raw body for signature verification
 router.post(
   '/webhook',
-  bodyParser.raw({ type: 'application/json' }),
+  express.raw({ type: 'application/json' }),
   async (req, res) => {
     console.log('Stripe webhook called!');
     const sig = req.headers['stripe-signature'];
