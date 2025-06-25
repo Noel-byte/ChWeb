@@ -18,14 +18,14 @@ import './config/passport.js'; //triggers strategy registration
 const app = express();
 
 app.use('/api/stripe', webhookRoutes);
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://faithbridge.netlify.app',
-];
+// const allowedOrigins = [
+//   'http://localhost:5173',
+//   'https://faithbridge.netlify.app',
+// ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   })
 );
