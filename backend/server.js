@@ -1,6 +1,6 @@
 // console.log('Starting server...');
 import dotenv from 'dotenv';
-dotenv.config();
+// dotenv.config();
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use('/static', express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Test route
 app.get('/health', (req, res) => res.send('OK'));
