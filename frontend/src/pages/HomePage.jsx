@@ -24,7 +24,9 @@ const HomePage = () => {
     axios
       .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/getPost`)
       .then((response) => {
-        setPosts(response.data.posts);
+        const data = response.data;
+        const safePosts = Array.isArray(data.posts) ? data.posts : [];
+        setPosts(safePosts);
         toast.dismiss();
       })
       .catch((error) => console.log(error));
@@ -70,6 +72,11 @@ const HomePage = () => {
   return (
     <div className="px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+        {posts.length === 0 && (
+          <div className="col-span-full text-center text-gray-500">
+            No posts found.
+          </div>
+        )}
         {[...posts]
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((post, index) => (
