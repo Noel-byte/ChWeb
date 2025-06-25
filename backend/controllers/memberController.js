@@ -109,8 +109,8 @@ const processPayment = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.CLIENT_URL}/payment-success`,
-      cancel_url: `${process.env.CLIENT_URL}/payment-canceled`,
+      success_url: `${process.env.FRONTEND_URL}/payment-success`,
+      cancel_url: `${process.env.FRONTEND_URL}/payment-canceled`,
       metadata: {
         type:'payment',
         memberId: id.toString(),
@@ -146,8 +146,8 @@ const processDonation = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.CLIENT_URL}/donation-success`,
-      cancel_url: `${process.env.CLIENT_URL}/donation-canceled`,
+      success_url: `${process.env.FRONTEND_URL}/donation-success`,
+      cancel_url: `${process.env.FRONTEND_URL}/donation-canceled`,
       metadata: {
         type:'donation',
         userEmail: req.user.email,
