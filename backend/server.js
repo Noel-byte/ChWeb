@@ -14,11 +14,10 @@ import webhookRoutes from './routes/webhookRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import './config/passport.js'; //triggers strategy registration
 
-console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
-
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+
+app.use('/api/stripe', webhookRoutes);
 const allowedOrigins = [
   'http://localhost:5173',
   'https://faithbridge.netlify.app',
@@ -30,7 +29,7 @@ app.use(
     credentials: true,
   })
 );
-app.use('/api/stripe', webhookRoutes);
+
 app.use(cookieParser()); //parse cookies
 app.use(express.json()); //parse json body
 
