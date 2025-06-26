@@ -91,10 +91,10 @@ function App() {
 
   useEffect(() => {
     axios
-      .get(`/api/auth/refresh`, { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/auth/refresh`, { withCredentials: true })
       .then(() => {
         // ✅ If refresh succeeds, also get user info:
-        return axios.get(`/api/members/user`, { withCredentials: true });
+        return axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, { withCredentials: true });
       })
       .then((res) => {
         setUserInfo(res.data.member);

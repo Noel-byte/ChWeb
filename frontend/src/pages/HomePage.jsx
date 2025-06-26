@@ -48,7 +48,7 @@ const HomePage = () => {
 
   const handleSave = (postId) => {
     axios
-      .put(`/api/admin/posts/${postId}`, {
+      .put(`${import.meta.env.VITE_API_BASE_URL}/api/admin/posts/${postId}`, {
         content: content,
       })
       .then(() => {
@@ -65,7 +65,7 @@ const HomePage = () => {
   const handleDelete = (postId) => {
     //make an axios delete request to delete the post
     axios
-      .delete(`/api/admin/posts/${postId}`)
+      .delete(`${import.meta.env.VITE_API_BASE_URL}/api/admin/posts/${postId}`)
       .then(() => {
         //  refetch the posts
         getPosts();
