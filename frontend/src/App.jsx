@@ -16,6 +16,7 @@ import CreatePost from './pages/CreatePost';
 import Logout from './pages/Logout';
 import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import Checkout from './pages/Checkout';
 
 function App() {
   const [feeAmount, setFeeAmount] = useState(0);
@@ -68,6 +69,10 @@ function App() {
         {
           path: 'donation-success',
           element: <Success />,
+        },
+         {
+          path: 'checkout',
+          element: <Checkout />,
         },
         {
           path: 'donation-canceled',

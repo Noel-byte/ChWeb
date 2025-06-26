@@ -5,10 +5,13 @@ import Input from '../components/Input';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import RegisterFirst from './RegisterFirst';
+import { useNavigate } from 'react-router-dom';
 
 const AnnualFee = () => {
   const { feeAmount, userInfo, setUserInfo, setFeeAmount, isLoggedIn } =
     useContext(MyContext);
+  const navigate = useNavigate();
+
   const [isMember, setIsMember] = useState(false);
   const { t } = useTranslation();
   //first get the token
@@ -52,12 +55,14 @@ const AnnualFee = () => {
         }/api/members/create-checkout-session-annualfee`,
         data,
         {
-          withCredentials:true,
+          withCredentials: true,
         }
       )
       .then((res) => {
-        //redirect to Stripe checkout
-        window.location.href = res.data.url;
+        const secret = res.data.clientSecret;
+
+        // Redirect to central checkout page
+        navigate(`/checkout?clientSecret=${encodeURIComponent(secret)}`);
       })
       .catch((error) => console.log(error));
   };
@@ -69,6 +74,7 @@ const AnnualFee = () => {
         </h1>
 
         {/* Payment section */}
+
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 py-4 mb-6 border-b border-gray-100">
           <div className="flex-1">
             <label

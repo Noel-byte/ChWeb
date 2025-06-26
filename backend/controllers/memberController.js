@@ -84,42 +84,38 @@ const getMember = async (req, res) => {
 const processPayment = async (req, res) => {
   const { amount } = req.body;
   const id = req.user.member._id;
-   const protocol = req.protocol;
-  const host = req.get('host');
 
   try {
-    //create stripe customer
-    const customer = await stripe.customers.create({
-      email: req.user.member.email,
-    });
-
     //create checkout session
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      customer: customer.id,
+      customer_email: req.user.email,
       line_items: [
         {
           price_data: {
             currency: 'cad',
             product_data: {
-              name: 'Annual Church Membership Fee',
+              name: 'Membership Fee',
             },
-            unit_amount: amount * 100, // stripe uses cents
+            unit_amount: amount * 100,
           },
           quantity: 1,
         },
       ],
       mode: 'payment',
-     success_url: `${protocol}://${host}/donation-success`,
-      cancel_url: `${protocol}://${host}/donation-cancel`,
+      ui_mode: 'embedded',
+      // return_url:'https://faithbridge.onrender.com/donation-success',
+      return_url: 'http://localhost:5000/payment-success',
       metadata: {
         type: 'payment',
         memberId: id.toString(),
       },
     });
 
-    res.status(200).json({ url: session.url });
+     res
+      .status(200)
+      .json({ clientSecret: session.client_secret, sessionId: session.id });
   } catch (error) {
     console.error('Stripe session error:', error);
     res.status(500).json({ error: 'Something went wrong with Stripe' });
@@ -129,7 +125,7 @@ const processPayment = async (req, res) => {
 const processDonation = async (req, res) => {
   const { amount } = req.body;
 
-   if (!amount || Number(amount) <= 0) {
+  if (!amount || Number(amount) <= 0) {
     return res.status(400).json({ error: 'Invalid amount' });
   }
 
@@ -154,16 +150,20 @@ const processDonation = async (req, res) => {
         },
       ],
       mode: 'payment',
-      ui_mode:'embedded',
-      return_url:'https://faithbridge.onrender.com/return?session_id={CHECKOUT_SESSION_ID}',
-      // metadata: {
-      //   type: 'donation',
-      //   userEmail: req.user.email,
-      //   googleid: req.user.googleid,
-      // },
+      ui_mode: 'embedded',
+      // return_url:'https://faithbridge.onrender.com/donation-success',
+      return_url: 'http://localhost:5000/donation-success',
+
+      metadata: {
+        type: 'donation',
+        userEmail: req.user.email,
+        googleid: req.user.googleid,
+      },
     });
 
-    res.status(200).json({ clientSecret: session.client_secret });
+    res
+      .status(200)
+      .json({ clientSecret: session.client_secret, sessionId: session.id });
   } catch (error) {
     console.error('Stripe session error:', error);
     res.status(500).json({ error: 'Something went wrong with Stripe' });
