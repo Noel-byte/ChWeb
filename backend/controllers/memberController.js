@@ -156,11 +156,11 @@ const processDonation = async (req, res) => {
       mode: 'payment',
       ui_mode:'embedded',
       return_url:'https://faithbridge.onrender.com/return?session_id={CHECKOUT_SESSION_ID}',
-      metadata: {
-        type: 'donation',
-        userEmail: req.user.email,
-        googleid: req.user.googleid,
-      },
+      // metadata: {
+      //   type: 'donation',
+      //   userEmail: req.user.email,
+      //   googleid: req.user.googleid,
+      // },
     });
 
     res.status(200).json({ clientSecret: session.client_secret });
