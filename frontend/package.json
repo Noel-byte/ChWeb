@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-   "build": "vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
+    "@stripe/stripe-js": "^7.4.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.7",
     "@tinymce/tinymce-react": "^6.2.1",

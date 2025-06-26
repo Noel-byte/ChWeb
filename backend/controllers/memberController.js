@@ -128,10 +128,14 @@ const processPayment = async (req, res) => {
 
 const processDonation = async (req, res) => {
   const { amount } = req.body;
-  const protocol = req.protocol;
-  const host = req.get('host');
 
-  console.log('req.user: ', req.user);
+   if (!amount || Number(amount) <= 0) {
+    return res.status(400).json({ error: 'Invalid amount' });
+  }
+
+  if (!req.user?.email) {
+    return res.status(401).json({ error: 'User not authenticated' });
+  }
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -150,8 +154,8 @@ const processDonation = async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `${protocol}://${host}/donation-success`,
-      cancel_url: `${protocol}://${host}/donation-cancel`,
+      ui_mode:'embedded',
+      return_url:'https://faithbridge.onrender.com/return?session_id={CHECKOUT_SESSION_ID}',
       metadata: {
         type: 'donation',
         userEmail: req.user.email,
@@ -159,7 +163,7 @@ const processDonation = async (req, res) => {
       },
     });
 
-    res.status(200).json({ url: session.url });
+    res.status(200).json({ clientSecret: session.client_secret });
   } catch (error) {
     console.error('Stripe session error:', error);
     res.status(500).json({ error: 'Something went wrong with Stripe' });
