@@ -105,8 +105,8 @@ const processPayment = async (req, res) => {
       ],
       mode: 'payment',
       ui_mode: 'embedded',
-      // return_url:'https://faithbridge.onrender.com/donation-success',
-      return_url: 'http://localhost:5000/payment-success',
+      return_url:'https://faithbridge.onrender.com/donation-success',
+      // return_url: 'http://localhost:5000/payment-success',
       metadata: {
         type: 'payment',
         memberId: id.toString(),
@@ -151,8 +151,8 @@ const processDonation = async (req, res) => {
       ],
       mode: 'payment',
       ui_mode: 'embedded',
-      // return_url:'https://faithbridge.onrender.com/donation-success',
-      return_url: 'http://localhost:5000/donation-success',
+      return_url:'https://faithbridge.onrender.com/donation-success',
+      // return_url: 'http://localhost:5000/donation-success',
 
       metadata: {
         type: 'donation',
