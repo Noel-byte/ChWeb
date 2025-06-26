@@ -12,4 +12,3 @@ rm -rf ../backend/dist
 cp -r dist ../backend/ || exit 1
 
 echo "✅ Frontend build complete."
-"
