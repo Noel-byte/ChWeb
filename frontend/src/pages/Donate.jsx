@@ -33,7 +33,7 @@ const Donate = () => {
 
     try {
       const res = await axios.post(
-        '/api/members/create-checkout-session-donation',
+        `${import.meta.env.VITE_API_BASE_URL}/api/members/create-checkout-session-donation`,
         { amount },
         { withCredentials: true }
       );
