@@ -22,7 +22,7 @@ const Donate = () => {
 
     useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, {
+      .get(`/api/members/user`, {
         withCredentials: true,
       })
       .then((res) => {

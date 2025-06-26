@@ -17,7 +17,7 @@ const AnnualFee = () => {
     //load member details
     if (!isLoggedIn) return;
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/members/user`, {
+      .get(`/api/members/user`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -47,9 +47,7 @@ const AnnualFee = () => {
     //validate the member id
     axios
       .post(
-        `${
-          import.meta.env.VITE_API_BASE_URL
-        }/api/members/create-checkout-session-annualfee`,
+        `/api/members/create-checkout-session-annualfee`,
         data,
         {
           withCredentials:true,

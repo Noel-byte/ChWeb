@@ -236,7 +236,7 @@ const Registration = () => {
 
     //create a member in the database
     axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/api/members`, churMem)
+      .post(`/api/members`, churMem)
       .then(() => {
         setEnteredValues({
           memberId: '',

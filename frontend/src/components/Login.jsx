@@ -59,7 +59,7 @@ const Login = () => {
     //after login, fetch user info again to update context & state
     try {
       const userRes = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/api/members/user`,
+        `/api/members/user`,
         {
           withCredentials: true,
         }
