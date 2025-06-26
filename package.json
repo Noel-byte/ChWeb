@@ -1,8 +1,0 @@
-{
-  "name": "faithbridge-monorepo",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "bash build-and-deploy.sh",
-    "start": "cd backend && node server.js"
-  }
-}
