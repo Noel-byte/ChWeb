@@ -25,8 +25,9 @@
     "thanksfordonation":"Thank you for generaous donation !",
     "donationmessage":"Your donation helps to continue our mission and reach more people",
     "homepageheader":"Assumption of Mary Geez Rite Eritrean Catholic Church of Edmonton",
-    "homepagemessage":" I will bring you joy in my house of prayer, and accept the sacrifices you offer on my altar. My Temple will be called a house of prayer for the people of all nations. ",
-    "name":"- Isaiah 56:7"
+
+     "homepagemessage":"{{message}}",
+    "name":"{{name}}"
     
 
 }

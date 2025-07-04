@@ -1,0 +1,3 @@
+ const  SCRIPTURES = [" I will bring you joy in my house of prayer, and accept the sacrifices you offer on my altar. My Temple will be called a house of prayer for the people of all nations. - Isaiah 56:7 ","And we know that in all things God works for the good of those who love him, who have been called according to his purpose. - Romans 8:28 ","I can do everything through him who gives me strength.- Philippians 4:13","Trust in the LORD with all your heart and lean not on your own understanding. - Proverbs 3:5","Do not be anxious about anything, but in everything, by prayer and petition, with thanksgiving, present your requests to God. -  Philippians 4:6 "]
+
+export default  SCRIPTURES
