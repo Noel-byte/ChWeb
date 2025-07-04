@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import RegisterFirst from './RegisterFirst';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-19-helmet-async'
 
 const AnnualFee = () => {
   const { feeAmount, userInfo, setUserInfo, setFeeAmount, isLoggedIn } =

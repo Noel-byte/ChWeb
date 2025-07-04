@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import BlogEditor from '../components/BlogEditor';
 import { Toaster, toast } from 'react-hot-toast';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-19-helmet-async'
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);

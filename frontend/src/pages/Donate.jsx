@@ -3,7 +3,7 @@ import axios from 'axios';
 import MyContext from '../components/MyContext';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-19-helmet-async'
 
 const Donate = () => {
   const [amount, setAmount] = useState(1);
