@@ -56,7 +56,7 @@ const RouteLayout = () => {
           <p
             className={`transition-opacity duration-500 ease-in-out ${
               fade ? 'opacity-100' : 'opacity-0'
-            }  text-base sm:text-lg md:text-xl mt-3 text-stone-200 font-mono max-w-3xl mx-auto`}
+            }  text-base sm:text-lg md:text-xl mt-3 text-[#99CCFF] font-mono max-w-3xl mx-auto`}
           >
             "{t('homepagemessage', { message: message.split('-')[0] })}"{' '}
             {t('name', { name: message.split('-')[1] })}
